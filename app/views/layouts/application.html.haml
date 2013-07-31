@@ -1,0 +1,14 @@
+!!!
+%html
+	%head
+		%meta{:charset => "utf-8"}
+		%meta{:content => "DEESCRIPCIÓN DE LA PÁGINA", :name => "description"}
+		%meta{:content => "Daniel Romero Esteban", :name => "author"}
+		%title= 'Bomberball'
+		= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
+		= javascript_include_tag "application", "data-turbolinks-track" => true
+		= csrf_meta_tags
+		= favicon_link_tag 'favicon.ico'
+	%body.tfg
+
+		= yield

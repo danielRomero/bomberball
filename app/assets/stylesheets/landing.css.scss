@@ -1,0 +1,113 @@
+// Place all the styles related to the landing controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.landing{
+	.header{
+		position:fixed;
+		width:100%;
+		top:0;
+		z-index: 10;
+		height: 40px;
+		background-color: #2E3138;
+		box-shadow: 0px 5px 5px #060606;
+		-moz-box-shadow: 0px 5px 5px #060606;
+		-webkit-box-shadow: 0px 5px 5px #060606;
+		.header_menu_bar{
+			border-top: 2px solid #EE6162;
+			.item{
+				cursor:pointer;
+				font-weight: bold;
+				color: #DADADB;
+				height:100%;
+				width:100px;
+				float:right;
+				.arrow{
+					display: none;
+					color : #EE6162;
+					float: right;
+					padding-top: 8px;			
+				}
+				.active{
+					display: block;
+				}
+				.content{
+					padding: 9px 0 0 5px;
+					float:right;
+					text-align: right;
+				}
+			}
+			.item:hover{
+				color: white;
+			}
+		}
+	}
+	.content_title_1{
+		padding: 45px 0 5px 0;
+		color: #DADADB;
+		background-color: #25262B;
+		
+	}
+	.content_title_2{
+		padding: 50px 0 100px 0;
+		//background-color: #797F8D;
+		background-color:#F6F7FB;
+		-webkit-box-shadow:  -5px 0px 5px 5px #060606;   
+    box-shadow:  -5px 0px 5px 5px #060606;
+    .boxes_content{
+    	color:#060606;
+    	text-align: center;
+    	.box{
+    		padding: 10px;
+    		border: solid 2px #2E3138;
+    		border-radius: 4px;
+    		float:left;
+    		width:30%;
+    		margin-left: 5px;
+    		.social_actions{
+    			color:#2E3138;
+    			font-size: 57px;
+    			.icon:hover{
+    				opacity: .6;
+    				cursor: pointer;
+    			}
+    		}
+    	}
+    	.box:hover{
+    		background-color: #DADADB;
+    	}
+    }
+	}
+	.content_title_3{
+		padding: 50px 0 100px 0;
+		background-color: #454753;
+		text-shadow: 1px 1px  #3C3C3C;
+		.devices{
+			font-size: 150px;
+			text-align: center;
+
+			.icon{
+				margin-left: 30px;
+			}
+		}
+	}
+	.content_title_4{
+		padding: 50px 0 100px 0;
+		background-color:#24252A;
+		-webkit-box-shadow:  -5px 0px 5px 5px #060606;   
+    box-shadow:  -5px 0px 5px 5px #060606;
+    .title{
+   	 color:#EE6162;
+  	}
+  	.caption{
+  		color: #DADADB;
+  	}
+  	.footer{
+  		font-size: 20px;
+  		padding-left: 5px;
+  		#fff:hover path {
+    		fill: green;
+			}
+  	}
+	}
+
+}
