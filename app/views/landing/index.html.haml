@@ -37,7 +37,13 @@
 	-#fin header
 	-#cita
 	.content_title_1#bomberman_title
-		%h2.text-center='"It looks like a classic Bomberman game"'
+		%h2.text-center.active='"It looks like a classic Bomberman game"'
+		%h2.text-center='"It looks like a classic Bomberman game1"'
+		%h2.text-center='"It looks like a classic Bomberman game2"'
+		%h2.text-center='"It looks like a classic Bomberman game3"'
+		%h2.text-center='"It looks like a classic Bomberman game4"'
+		:javascript
+
 	-#cajas explicativas how works con 3 pasos
 	.content_title_2#how_works
 		.row-fluid
@@ -48,10 +54,14 @@
 				.boxes_content
 					.box{:style=>'margin-left: 0;'}
 						.social_actions
-							.icon-facebook-sign.icon
-							.icon-twitter-sign.icon
-							.icon-google-plus-sign.icon
-							=image_tag('enso_icon.svg',:size=>'50x50',:class=>'icon',:style=>'position:relative;top:-4px;')
+							=link_to(login_facebook_path) do
+								.icon-facebook-sign.icon
+							=link_to(login_twitter_path) do
+								.icon-twitter-sign.icon
+							=link_to(login_google_path) do
+								.icon-google-plus-sign.icon
+							=link_to(login_beperk_path) do
+								=image_tag('enso_icon.svg',:size=>'50x50',:class=>'icon',:style=>'position:relative;top:-4px;')	
 						.caption
 							%h3='Step 1'
 							%p='Login with your favorite social network.'
@@ -93,7 +103,7 @@
 				.caption
 					%h5='Hi everybody!'
 					%p
-						="I'm graduate on Information Systems by University of Alcalá and actually I'm web developer at"
+						="I am graduate on Information Systems by University of Alcalá and now I am web developer at"
 						=link_to('Beperk.com','http://www.beperk.com',:target=>'_blank')					
 					%br
 					.span6{:style=>'margin-left:0;'}

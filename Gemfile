@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
@@ -21,11 +23,17 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+# Use jQuery UI as JavaScript library
+gem "jquery-ui-rails", "~> 4.0.4"
+
 # Use jCanvas as JavaScript library
 gem 'jquery-jcanvas-rails', git: "https://github.com/danielRomero/jquery-jcanvas-rails.git"
 
 # Use HAML
 gem "haml", "~> 4.0.3"
+
+# Use Rest Client http://rubygems.org/gems/rest-client
+gem "rest-client", "~> 1.6.7"
 
 # Use Awesome icons
 gem "font-awesome-rails", git: "https://github.com/bokmann/font-awesome-rails"
@@ -33,12 +41,21 @@ gem "font-awesome-rails", git: "https://github.com/bokmann/font-awesome-rails"
 # Use Twitter Bootstrap CSS & jQuery
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
+# Use Oaut2 authenticate
+gem 'oauth2'
+
+# Use Oauth authenticate (for twitter) https://github.com/oauth-xx/oauth-ruby
+gem 'oauth'
+
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+
+# https://devcenter.heroku.com/articles/rails-integration-gems
+gem 'rails_12factor', group: :production
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

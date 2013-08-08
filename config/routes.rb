@@ -1,5 +1,10 @@
 Bomberball::Application.routes.draw do
   root 'landing#index'
+
+  get 'users/login_beperk' =>'users#login_beperk', as: :login_beperk
+  get 'users/login_twitter' =>'users#login_twitter', as: :login_twitter
+  get 'users/login_google' =>'users#login_google', as: :login_google
+  get 'users/login_facebook' =>'users#login_facebook', as: :login_facebook
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

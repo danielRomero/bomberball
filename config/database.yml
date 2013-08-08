@@ -51,10 +51,3 @@ test:
   username: <%= ENV["BD_USER_NAME"] %>
   password: <%= ENV["BD_PASS"] %>
 
-production:
-  adapter: postgresql
-  encoding: utf-8
-  database: bomberball_production
-  pool: 10
-  username: <%= ENV["BD_USER_NAME"] %>
-  password: <%= ENV["BD_PASS"] %>

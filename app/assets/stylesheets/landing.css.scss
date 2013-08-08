@@ -45,6 +45,13 @@
 		padding: 45px 0 5px 0;
 		color: #DADADB;
 		background-color: #25262B;
+		h2{
+			display:none;
+		}
+		h2.active{
+			display:block;
+		}
+		
 		
 	}
 	.content_title_2{
