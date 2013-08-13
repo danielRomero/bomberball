@@ -94,6 +94,7 @@ class UsersController < ApplicationController
       # raise "#{token.token} #{token.refresh_token}".inspect
       raise token.inspect
       response = token.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json', :params => { 'query_foo' => 'bar' })
+      # AQUI TENEMOS AL USUARIO
       logger.debug response.parsed.inspect
     else
       if !params[:denied]

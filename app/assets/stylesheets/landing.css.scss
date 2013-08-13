@@ -3,41 +3,21 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .landing{
 	.header{
-		position:fixed;
-		width:100%;
-		top:0;
-		z-index: 10;
-		height: 40px;
-		background-color: #2E3138;
-		box-shadow: 0px 5px 5px #060606;
-		-moz-box-shadow: 0px 5px 5px #060606;
-		-webkit-box-shadow: 0px 5px 5px #060606;
-		.header_menu_bar{
-			border-top: 2px solid #EE6162;
-			.item{
-				cursor:pointer;
-				font-weight: bold;
+		.navbar{
+			margin-bottom: 0;
+			padding-left: 0;
+			padding-right: 0;
+			background-color: #2E3138;
+			box-shadow: 0px 5px 5px #060606;
+			-moz-box-shadow: 0px 5px 5px #060606;
+			-webkit-box-shadow: 0px 5px 5px #060606;
+			a:hover{
 				color: #DADADB;
-				height:100%;
-				width:100px;
-				float:right;
-				.arrow{
-					display: none;
-					color : #EE6162;
-					float: right;
-					padding-top: 8px;			
-				}
-				.active{
-					display: block;
-				}
-				.content{
-					padding: 9px 0 0 5px;
-					float:right;
-					text-align: right;
-				}
 			}
-			.item:hover{
-				color: white;
+			.container{
+				border-top: 4px solid #EE6162;
+				padding-left: 0;
+				padding-right: 0;
 			}
 		}
 	}
@@ -55,66 +35,77 @@
 		
 	}
 	.content_title_2{
-		padding: 50px 0 100px 0;
+		padding: 30px 0 40px 0;
 		//background-color: #797F8D;
-		background-color:#F6F7FB;
+		background: url("bg.png") repeat scroll 0 0 #2A2A2A;
+    //color: #888888;
+    color:#DADADB;
 		-webkit-box-shadow:  -5px 0px 5px 5px #060606;   
     box-shadow:  -5px 0px 5px 5px #060606;
-    .boxes_content{
-    	color:#060606;
-    	text-align: center;
+    .content_box{
+    	padding:20px;
     	.box{
-    		padding: 10px;
-    		border: solid 2px #2E3138;
-    		border-radius: 4px;
-    		float:left;
-    		width:30%;
-    		margin-left: 5px;
-    		.social_actions{
-    			color:#2E3138;
-    			font-size: 57px;
-    			.icon:hover{
-    				opacity: .6;
-    				cursor: pointer;
-    			}
-    		}
-    	}
-    	.box:hover{
-    		background-color: #DADADB;
-    	}
-    }
+    		margin:0 auto;
+    		width:250px;
+    		border:2px solid #25262B;
+    		border-radius: 10px;
+    		padding:20px;
+    		background-color: #2E3138;
+    		opacity: .6;
+	  		.social_actions{
+	  			a{
+		  			font-size: 57px;
+		  			color:#DADADB;
+		  			.icon:hover{
+		  				opacity: .6;
+		  				cursor: pointer;
+		  			}
+	  			}
+	  		} 
+	  	}
+	  	.box:hover{
+  			opacity: 1;
+  		}
+	  }
+  	
 	}
 	.content_title_3{
-		padding: 50px 0 100px 0;
+		padding: 40px 0 60px 0;
 		background-color: #454753;
 		text-shadow: 1px 1px  #3C3C3C;
 		.devices{
-			font-size: 150px;
-			text-align: center;
-
-			.icon{
-				margin-left: 30px;
+			padding-top: 35px;
+			.row{
+				.device{
+					display:block;
+					margin: 0 auto;
+					font-size: 100px;
+				}
 			}
 		}
 	}
 	.content_title_4{
-		padding: 50px 0 100px 0;
+		padding: 50px 0 50px 0;
 		background-color:#24252A;
 		-webkit-box-shadow:  -5px 0px 5px 5px #060606;   
     box-shadow:  -5px 0px 5px 5px #060606;
     .title{
    	 color:#EE6162;
+   	 padding-bottom: 40px;
   	}
   	.caption{
   		color: #DADADB;
   	}
-  	.footer{
-  		font-size: 20px;
-  		padding-left: 5px;
-  		#fff:hover path {
-    		fill: green;
-			}
+  	.image_profile{
+  		margin-top: 15px;
   	}
+	}
+
+	.modal-body{
+		text-align: center;	
+		.icon{
+			font-size: 57px; 
+		}
 	}
 
 }

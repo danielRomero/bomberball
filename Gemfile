@@ -27,7 +27,7 @@ gem 'jquery-rails'
 gem "jquery-ui-rails", "~> 4.0.4"
 
 # Use jCanvas as JavaScript library
-gem 'jquery-jcanvas-rails', git: "https://github.com/danielRomero/jquery-jcanvas-rails.git"
+gem 'jquery-jcanvas-rails', git: "git://github.com/danielRomero/jquery-jcanvas-rails.git"
 
 # Use HAML
 gem "haml", "~> 4.0.3"
@@ -36,10 +36,10 @@ gem "haml", "~> 4.0.3"
 gem "rest-client", "~> 1.6.7"
 
 # Use Awesome icons
-gem "font-awesome-rails", git: "https://github.com/bokmann/font-awesome-rails"
+gem "font-awesome-rails", git: "git://github.com/bokmann/font-awesome-rails"
 
 # Use Twitter Bootstrap CSS & jQuery
-gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+#gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 # Use Oaut2 authenticate
 gem 'oauth2'

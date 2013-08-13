@@ -1,114 +1,100 @@
 .landing
 	.header
-		.row-fluid	
-			.span2
-			.span8.header_menu_bar
-
-				.item{:style=>'float:left;',:onclick=>"$('html, body').animate({scrollTop:$('#bomberman_title').position().top},'slow')"}
-					.arrow{:style=>'float:left;'}
-						.icon-caret-right
-					.content{:style=>'float:left;'}
-						='Bomberball'
-
-				.item
-					.content
-						='Play now'
-					.arrow.active
-						.icon-caret-right
-					
-				.item{:onclick=>"$('html, body').animate({scrollTop:$('#about').position().top},'slow')"}
-					.content
-						='About Me'
-					.arrow
-						.icon-caret-right
-					
-				.item{:onclick=>"$('html, body').animate({scrollTop:$('#devices').position().top},'slow')"}
-					.content
-						='Devices'
-					.arrow
-						.icon-caret-right
-					
-				.item{:onclick=>"$('html, body').animate({scrollTop:$('#how_works').position().top},'slow')"}
-					.content
-						='How it works'
-					.arrow
-						.icon-caret-right
-			.span2
-	-#fin header
-	-#cita
+		.navbar.navbar-fixed-top
+			.container.col-lg-6.col-lg-offset-3
+				%button{:type=>"button", :class=>"navbar-toggle", 'data-toggle'=>"collapse", 'data-target'=>".navbar-responsive-collapse"}
+					%span.icon-bar
+					%span.icon-bar
+					%span.icon-bar
+				=link_to 'Bomberball','',:class=>'navbar-brand',:onclick=>"$('html, body').animate({scrollTop:$('.landing').position().top},'slow')"
+				.nav-collapse.navbar-responsive-collapse.collapse
+					%ul.nav.navbar-nav.pull-right
+						%li
+							= link_to "How it works",'#how_works',:onclick=>"$('html, body').animate({scrollTop:$('#how_works').position().top},'slow')"
+						%li
+							= link_to "Devices",'#devices',:onclick=>"$('html, body').animate({scrollTop:$('#devices').position().top},'slow')"
+						%li
+							= link_to "About Me",'#about',:onclick=>"$('html, body').animate({scrollTop:$('#about').position().top},'slow')"
+						%li							
+							= link_to('#login_modal','data-toggle'=>'modal') do
+								.icon-caret-right{:style=>'float:left;color:#EE6162;padding-right:5px;line-height: 18px;'}
+								="Play now"
+	-# fin header
+	-# cita
 	.content_title_1#bomberman_title
 		%h2.text-center.active='"It looks like a classic Bomberman game"'
 		%h2.text-center='"It looks like a classic Bomberman game1"'
 		%h2.text-center='"It looks like a classic Bomberman game2"'
 		%h2.text-center='"It looks like a classic Bomberman game3"'
 		%h2.text-center='"It looks like a classic Bomberman game4"'
-		:javascript
-
-	-#cajas explicativas how works con 3 pasos
+	-# cajas explicativas how works con 3 pasos
 	.content_title_2#how_works
-		.row-fluid
-			.span2
-			.span8
-				.title
-					%h3.text-center='Start easy!'
-				.boxes_content
-					.box{:style=>'margin-left: 0;'}
-						.social_actions
-							=link_to(login_facebook_path) do
-								.icon-facebook-sign.icon
-							=link_to(login_twitter_path) do
-								.icon-twitter-sign.icon
-							=link_to(login_google_path) do
-								.icon-google-plus-sign.icon
-							=link_to(login_beperk_path) do
-								=image_tag('enso_icon.svg',:size=>'50x50',:class=>'icon',:style=>'position:relative;top:-4px;')	
-						.caption
-							%h3='Step 1'
-							%p='Login with your favorite social network.'
+		.row
+			.col-lg-6.col-lg-offset-3.col-12.col-sm-12
+				.title{:style=>'padding-bottom:15px;'}
+					%h2.text-center='Start easy!'
+				.row.text-center
+					.content_box.col-lg-6.col-12.col-sm-12
+						.box
+							.social_actions
+								=link_to(login_facebook_path) do
+									.icon-facebook-sign.icon
+								=link_to(login_twitter_path) do
+									.icon-twitter-sign.icon
+								%br
+								=link_to(login_google_path) do
+									.icon-google-plus-sign.icon
+								=link_to(login_beperk_path) do
+									.beperk-icon-enso_box.icon
+							.caption
+								%h3='Step 1'
+								%p='Enter with your favorite social network.'
+					.content_box.col-lg-6.col-12.col-sm-12
+						.box{:style=>'height:300px;'}
+							='Aqui va Imagen de Personalize your bombardier.'
+							.caption
+								%h3='Step 2'
+								%p='Personalize your bombardier.'
+					.content_box.col-lg-12.col-12.col-sm-12
+						.box{:style=>'height:300px;'}
+							='Aquí va Imagen de Play with your friends.'
+							.caption
+								%h3='Step 3'
+								%p='Play with your friends.'
 
-					.box
-						=image_tag('', :size => "300x200", :alt => 'Aqui va Imagen de ...................Personalize your bombardier.')
-						.caption
-							%h3='Step 2'
-							%p='Personalize your bombardier.'
-					.box
-						=image_tag('', :size => "300x200", :alt => 'Aquí va Imagen de ..............................Play with your friends.')
-						.caption
-							%h3='Step 3'
-							%p='Play with your friends.'
-			.span2
-	-#fin cajas
+	-# fin cajas
 	%div{:style=>'height:1px;width:100%;color:#2E3138;'}
 	-# devices
 	.content_title_3#devices
-		.row-fluid
-			.span2
-			.span8
+		.row
+			.col-lg-6.col-lg-offset-3.col-12.col-sm-12
 				.title					
-					%h3.text-center='Available in all devices by browser.'
+					%h3.text-center='Available in all devices by browser'
 				.devices
-					.icon.icon-mobile-phone
-					.icon.icon-tablet
-					.icon.icon-laptop
-					.icon.icon-desktop
-			.span2
+					.row.text-center
+						.col-lg-3.col-6.col-sm-6
+							.device.icon-mobile-phone
+						.col-lg-3.col-6.col-sm-6
+							.device.icon-tablet
+						.col-lg-3.col-6.col-sm-6
+							.device.icon-laptop
+						.col-lg-3.col-6.col-sm-6
+							.device.icon-desktop
 	-# fin devices
-	-#about
+	-# about
 	.content_title_4#about
-		.row-fluid
-			.span2
-			.span8
+		.row
+			.col-lg-6.col-lg-offset-3.col-12.col-sm-12
 				.title					
 					%h3.text-center='Daniel Romero Esteban'
 				.caption
-					%h5='Hi everybody!'
+					%h4='Hi everybody!'
 					%p
 						="I am graduate on Information Systems by University of Alcalá and now I am web developer at"
 						=link_to('Beperk.com','http://www.beperk.com',:target=>'_blank')					
-					%br
-					.span6{:style=>'margin-left:0;'}
-						%h5
-							='Me social'
+					
+					.col-lg-6.col-12.col-sm-12{:style=>'margin-left:0; padding-left:0;'}
+						%h4='Me social'
 						%p
 							='View this project on '
 							=link_to ' GitHub ','https://github.com/danielRomero' ,:target => '_brank' ,:class=>'icon-github'
@@ -118,84 +104,85 @@
 						%p
 							='Link to me '
 							=link_to '','http://www.linkedin.com/pub/daniel-romero-esteban/72/1a/b29' ,:target => '_brank' ,:class=>'icon-linkedin'
-					.span6
-						=image_tag('http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/6/000/265/3e6/0426659.jpg',:alt=>'Daniel Romero Esteban')
 
-					%br{:style=>'clear:both;'}
+					.col-lg-6.col-12.col-sm-12.text-center
+						=image_tag('http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/6/000/265/3e6/0426659.jpg',:alt=>'Daniel Romero Esteban',:class=>'image_profile')
 
-					%h5='About this project'
-					%p
-						='Bomberball is the name of this application which is my TFG (final degree project).'
-						%br
-						="It's written on Ruby using the Ruby on Rails framwework."
-						%br
-						='More technical details:'
-						.span4
-							%ul.icons-ul
-								%li{:style=>'font-weight: bold;padding-bottom:5px;'}
-									.icon-li.icon-camera-retro
-									='front-end'
-								%li
-									.icon-li.icon-ok
-									='CoffeeScript'
-								%li
-									.icon-li.icon-ok
-									='SASS'
-								%li
-									.icon-li.icon-ok
-									='Haml'
-								%li
-									.icon-li.icon-ok
-									='jCanvas'
-								%li
-									.icon-li.icon-ok
-									='Bootstrap'
-								%li
-									.icon-li.icon-ok
-									='Font Awesome'
-						.span4
-							%ul.icons-ul
-								%li{:style=>'font-weight: bold;padding-bottom:5px;'}
-									.icon-li.icon-gears
-									='back-end'
-								%li
-									.icon-li.icon-ok
-									='PostgreSQL'
-								%li
-									.icon-li.icon-ok
-									='Ruby on Rails 4.0'
-								%li
-									.icon-li.icon-ok
-									='Active Record'
-								%li
-									.icon-li.icon-ok
-									='MVC'
-						
-						%br{:style=>'clear:both;'}
-							
-								
+					
+					.col-lg-12.col-12.col-sm-12{:style=>'margin-left:0; padding-left:0;'}
+						%h4='About this project'
+						%p='Bomberball is the name of this application which is my TFG (final degree project).'
+						%p="It's written on Ruby using the Ruby on Rails framewework."
+						%p='More technical details:'
+					.col-lg-6.col-6.col-sm-6{:style=>'padding-left:0'}
+						%ul.icons-ul{:style=>'margin-left:0'}
+							%li{:style=>'font-weight: bold;padding-bottom:5px;'}
+								.icon-li.icon-camera-retro
+								='Front-end'
+							%li
+								.icon-li.icon-ok
+								='CoffeeScript'
+							%li
+								.icon-li.icon-ok
+								='SASS'
+							%li
+								.icon-li.icon-ok
+								='Haml'
+							%li
+								.icon-li.icon-ok
+								='jCanvas'
+							%li
+								.icon-li.icon-ok
+								='Bootstrap'
+							%li
+								.icon-li.icon-ok
+								='Font Awesome'
+					.col-lg-6.col-6.col-sm-6{:style=>'padding-left:0'}
+						%ul.icons-ul{:style=>'margin-left:0'}
+							%li{:style=>'font-weight: bold;padding-bottom:5px;'}
+								.icon-li.icon-gears
+								='Back-end'
+							%li
+								.icon-li.icon-ok
+								='PostgreSQL'
+							%li
+								.icon-li.icon-ok
+								='Ruby on Rails'
+							%li
+								.icon-li.icon-ok
+								='Active Record'
+							%li
+								.icon-li.icon-ok
+								='MVC'
+					%br
 						-#footer
-						%hr
+						%hr{:style=>'clear:both;'}
 						.footer
-							%h6{:style=>'font-weight:normal'}
+							%small
+								.icon-html5
+								.icon-css3
+							
 								='2013 Daniel Romero Esteban'
-								%a{:rel=>'license', :href=>'http://creativecommons.org/licenses/by-nc-nd/3.0/deed.es',:target=>'_blank'}
+								=link_to('http://creativecommons.org/licenses/by-nc-nd/3.0/deed.es',:rel=>'license',:target=>'_blank') do
 									=image_tag('http://i.creativecommons.org/l/by-nc-nd/3.0/80x15.png', :alt=>'Licencia Creative Commons', :style=>'border-width:0')
 								='Esta obra está bajo una'
-								%a{:rel=>'license', :href=>'http://creativecommons.org/licenses/by-nc-nd/3.0/deed.es',:target=>'_blank'}
-									='Licencia Creative Commons Atribución-NoComercial-SinDerivadas 3.0 Unported'
+								=link_to('http://creativecommons.org/licenses/by-nc-nd/3.0/deed.es',:rel=>'license',:target=>'_blank') do
+									='Licencia Creative Commons Atribución-NoComercial-SinDerivadas 3.0 Unported'							
 							
-							.icon-html5
-							.icon-css3
-							.icon-github
-							=image_tag('http://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Ruby_logo.svg/198px-Ruby_logo.svg.png',:size=>'20x20',:id=> 'fff')
-							=image_tag('http://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Ruby_on_Rails.svg/122px-Ruby_on_Rails.svg.png',:size=>'20x20')
-							=image_tag('http://wiki.postgresql.org/images/a/a4/PostgreSQL_logo.3colors.svg',:size=>'20x20',:id=>'aa')
-			.span2
-						
-
-
-
-	
-	
-
+	-# MODAL WINDOW
+	.modal.fade#login_modal
+		.modal-dialog
+			.modal-content
+				.modal-header
+					%button.close{:type=>'button','data-dismiss'=>'modal', 'aria-hidden'=>'true'}='x'
+					%h4.modal-title='Enter with your social network'
+				.modal-body
+					.social_actions
+						=link_to(login_facebook_path) do
+							.icon-facebook-sign.icon
+						=link_to(login_twitter_path) do
+							.icon-twitter-sign.icon
+						=link_to(login_google_path) do
+							.icon-google-plus-sign.icon
+						=link_to(login_beperk_path) do
+							.beperk-icon-enso_box.icon{:style=>'font-size: 52px; line-height:50px;'}
