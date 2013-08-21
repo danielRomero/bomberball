@@ -1,20 +1,21 @@
 .landing
-	.header
-		.navbar.navbar-fixed-top
-			.container.col-lg-6.col-lg-offset-3
-				%button{:type=>"button", :class=>"navbar-toggle", 'data-toggle'=>"collapse", 'data-target'=>".navbar-responsive-collapse"}
-					%span.icon-bar
-					%span.icon-bar
-					%span.icon-bar
-				=link_to 'Bomberball','',:class=>'navbar-brand',:onclick=>"$('html, body').animate({scrollTop:$('.landing').position().top},'slow')"
-				.nav-collapse.navbar-responsive-collapse.collapse
+	.header.row
+		%nav.navbar.navbar-default.navbar-fixed-top{:role=>'navigation'}
+			.container.col-lg-6.col-md-6.col-lg-offset-3.col-md-offset-3
+				.navbar-header
+					%button{:type=>"button", :class=>"navbar-toggle", 'data-toggle'=>"collapse", 'data-target'=>".navbar-ex1-collapse"}
+						%span.icon-bar
+						%span.icon-bar
+						%span.icon-bar
+					=link_to 'Bomberball','',:class=>'navbar-brand',:onclick=>"$('html, body').animate({scrollTop:$('.landing').position().top},'slow')"
+				.collapse.navbar-collapse.navbar-ex1-collapse
 					%ul.nav.navbar-nav.pull-right
 						%li
-							= link_to "How it works",'#how_works',:onclick=>"$('html, body').animate({scrollTop:$('#how_works').position().top},'slow')"
+							= link_to "How it works",'#how_works',:onclick=>"$('html, body').animate({scrollTop:$('#how_works').position().top - 50},'slow')"
 						%li
-							= link_to "Devices",'#devices',:onclick=>"$('html, body').animate({scrollTop:$('#devices').position().top},'slow')"
+							= link_to "Devices",'#devices',:onclick=>"$('html, body').animate({scrollTop:$('#devices').position().top - 50},'slow')"
 						%li
-							= link_to "About Me",'#about',:onclick=>"$('html, body').animate({scrollTop:$('#about').position().top},'slow')"
+							= link_to "About Me",'#about',:onclick=>"$('html, body').animate({scrollTop:$('#about').position().top - 50},'slow')"
 						%li							
 							= link_to('#login_modal','data-toggle'=>'modal') do
 								.icon-caret-right{:style=>'float:left;color:#EE6162;padding-right:5px;line-height: 18px;'}
@@ -30,32 +31,33 @@
 	-# cajas explicativas how works con 3 pasos
 	.content_title_2#how_works
 		.row
-			.col-lg-6.col-lg-offset-3.col-12.col-sm-12
+			.col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-xs-12.col-sm-12
 				.title{:style=>'padding-bottom:15px;'}
 					%h2.text-center='Start easy!'
 				.row.text-center
-					.content_box.col-lg-6.col-12.col-sm-12
+					.content_box.col-lg-6.col-md-6.col-xs-12.col-sm-12
 						.box
 							.social_actions
 								=link_to(login_facebook_path) do
 									.icon-facebook-sign.icon
-								=link_to(login_twitter_path) do
+								=link_to('#twitter_email','data-toggle'=>'modal') do
 									.icon-twitter-sign.icon
 								%br
 								=link_to(login_google_path) do
 									.icon-google-plus-sign.icon
 								=link_to(login_beperk_path) do
-									.beperk-icon-enso_box.icon
+									.beperk-icon-enso_box.icon{:style=>'font-size:52px;'}
 							.caption
 								%h3='Step 1'
 								%p='Enter with your favorite social network.'
-					.content_box.col-lg-6.col-12.col-sm-12
+					.content_box.col-lg-6.col-md-6.col-xs-12.col-sm-12
 						.box{:style=>'height:300px;'}
 							='Aqui va Imagen de Personalize your bombardier.'
 							.caption
 								%h3='Step 2'
 								%p='Personalize your bombardier.'
-					.content_box.col-lg-12.col-12.col-sm-12
+					%div{:style=>'clear:both'}
+					.content_box.col-lg-12.col-md-12.col-xs-12.col-sm-12
 						.box{:style=>'height:300px;'}
 							='Aquí va Imagen de Play with your friends.'
 							.caption
@@ -67,24 +69,24 @@
 	-# devices
 	.content_title_3#devices
 		.row
-			.col-lg-6.col-lg-offset-3.col-12.col-sm-12
+			.col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-xs-12.col-sm-12
 				.title					
 					%h3.text-center='Available in all devices by browser'
 				.devices
 					.row.text-center
-						.col-lg-3.col-6.col-sm-6
+						.col-lg-3.col-md-3.col-xs-6.col-sm-6
 							.device.icon-mobile-phone
-						.col-lg-3.col-6.col-sm-6
+						.col-lg-3.col-md-3.col-xs-6.col-sm-6
 							.device.icon-tablet
-						.col-lg-3.col-6.col-sm-6
+						.col-lg-3.col-md-3.col-xs-6.col-sm-6
 							.device.icon-laptop
-						.col-lg-3.col-6.col-sm-6
+						.col-lg-3.col-md-3.col-xs-6.col-sm-6
 							.device.icon-desktop
 	-# fin devices
 	-# about
 	.content_title_4#about
 		.row
-			.col-lg-6.col-lg-offset-3.col-12.col-sm-12
+			.col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-xs-12.col-sm-12
 				.title					
 					%h3.text-center='Daniel Romero Esteban'
 				.caption
@@ -93,7 +95,7 @@
 						="I am graduate on Information Systems by University of Alcalá and now I am web developer at"
 						=link_to('Beperk.com','http://www.beperk.com',:target=>'_blank')					
 					
-					.col-lg-6.col-12.col-sm-12{:style=>'margin-left:0; padding-left:0;'}
+					.col-lg-6.col-md-6.col-xs-12.col-sm-12{:style=>'margin-left:0; padding-left:0;'}
 						%h4='Me social'
 						%p
 							='View this project on '
@@ -105,16 +107,16 @@
 							='Link to me '
 							=link_to '','http://www.linkedin.com/pub/daniel-romero-esteban/72/1a/b29' ,:target => '_brank' ,:class=>'icon-linkedin'
 
-					.col-lg-6.col-12.col-sm-12.text-center
+					.col-lg-6.col-md-6.col-xs-12.col-sm-12.text-center
 						=image_tag('http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/6/000/265/3e6/0426659.jpg',:alt=>'Daniel Romero Esteban',:class=>'image_profile')
 
 					
-					.col-lg-12.col-12.col-sm-12{:style=>'margin-left:0; padding-left:0;'}
+					.col-lg-12.col-md-12.col-xs-12.col-sm-12{:style=>'margin-left:0; padding-left:0;'}
 						%h4='About this project'
 						%p='Bomberball is the name of this application which is my TFG (final degree project).'
 						%p="It's written on Ruby using the Ruby on Rails framewework."
 						%p='More technical details:'
-					.col-lg-6.col-6.col-sm-6{:style=>'padding-left:0'}
+					.col-lg-6.col-md-6.col-xs-6.col-sm-6{:style=>'padding-left:0'}
 						%ul.icons-ul{:style=>'margin-left:0'}
 							%li{:style=>'font-weight: bold;padding-bottom:5px;'}
 								.icon-li.icon-camera-retro
@@ -137,7 +139,7 @@
 							%li
 								.icon-li.icon-ok
 								='Font Awesome'
-					.col-lg-6.col-6.col-sm-6{:style=>'padding-left:0'}
+					.col-lg-6.col-md-6.col-xs-6.col-sm-6{:style=>'padding-left:0'}
 						%ul.icons-ul{:style=>'margin-left:0'}
 							%li{:style=>'font-weight: bold;padding-bottom:5px;'}
 								.icon-li.icon-gears
@@ -180,9 +182,26 @@
 					.social_actions
 						=link_to(login_facebook_path) do
 							.icon-facebook-sign.icon
-						=link_to(login_twitter_path) do
+						=link_to('#twitter_email','data-toggle'=>'modal',:onclick=>"$('#login_modal').find('.close').click();") do
 							.icon-twitter-sign.icon
 						=link_to(login_google_path) do
 							.icon-google-plus-sign.icon
 						=link_to(login_beperk_path) do
 							.beperk-icon-enso_box.icon{:style=>'font-size: 52px; line-height:50px;'}
+	-# MODAL WINDOW request twitter email
+	.modal.fade#twitter_email
+		.modal-dialog
+			.modal-content
+				.modal-header
+					%button.close{:type=>'button','data-dismiss'=>'modal', 'aria-hidden'=>'true'}='x'
+					%h4.modal-title='With Twitter put your email address'
+				.modal-body
+					=form_tag(login_twitter_post_path,:class=>'form-inline',:role=>'form') do
+						.form-group
+							=email_field('twitter_email','',:required=>'required',:class=>'form-control',:placeholder=>'example@email.com')
+						=submit_tag('Submit',:id=>'twitter_email_submit',:class=>'btn btn-primary')
+	:javascript
+		$(document).ready(function() {
+			$('#twitter_email').draggable();
+			$('#login_modal').draggable();
+		});

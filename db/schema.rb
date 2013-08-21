@@ -11,21 +11,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130808195805) do
+ActiveRecord::Schema.define(version: 20130820155549) do
+
+  create_table "locations", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "location"
+  end
+
+  add_index "locations", ["user_id"], name: "index_locations_on_user_id", using: :btree
+
+  create_table "profiles", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "head_color",      default: "#FA0909"
+    t.string   "limbs_color",     default: "#000000"
+    t.string   "eyes_color",      default: "#1AFF00"
+    t.string   "bomb_color",      default: "#000000"
+    t.string   "explosion_color", default: "#FA0909"
+    t.string   "body_color",      default: "#0004FF"
+  end
 
   create_table "socials", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type"
-    t.string   "id_social"
+    t.string   "sn_type"
+    t.integer  "user_id"
+    t.string   "social_id"
+    t.string   "avatar_url",  default: "default_avatar.svg"
+    t.string   "name"
+    t.string   "social_link"
   end
+
+  add_index "socials", ["user_id"], name: "index_socials_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
     t.string   "email"
-    t.string   "avatar_url"
+    t.string   "avatar_url", default: "default_avatar.svg"
   end
 
 end

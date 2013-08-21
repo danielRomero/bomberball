@@ -5,7 +5,7 @@ ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
-# Use postgresql as the database for Active Record
+# =>  Use postgresql as the database for Active Record
 gem 'pg'
 
 # Use SCSS for stylesheets
@@ -23,10 +23,10 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-# Use jQuery UI as JavaScript library
+# =>  Use jQuery UI as JavaScript library
 gem "jquery-ui-rails", "~> 4.0.4"
 
-# Use jCanvas as JavaScript library
+# =>  Use jCanvas as JavaScript library
 gem 'jquery-jcanvas-rails', git: "git://github.com/danielRomero/jquery-jcanvas-rails.git"
 
 # Use HAML
@@ -35,16 +35,13 @@ gem "haml", "~> 4.0.3"
 # Use Rest Client http://rubygems.org/gems/rest-client
 gem "rest-client", "~> 1.6.7"
 
-# Use Awesome icons
+# =>  Use Awesome icons
 gem "font-awesome-rails", git: "git://github.com/bokmann/font-awesome-rails"
 
-# Use Twitter Bootstrap CSS & jQuery
-#gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
-
-# Use Oaut2 authenticate
+# =>  Use Oaut2 authenticate
 gem 'oauth2'
 
-# Use Oauth authenticate (for twitter) https://github.com/oauth-xx/oauth-ruby
+# =>  Use Oauth authenticate (for twitter) https://github.com/oauth-xx/oauth-ruby
 gem 'oauth'
 
 
