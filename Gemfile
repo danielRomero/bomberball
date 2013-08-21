@@ -8,6 +8,9 @@ gem 'rails', '4.0.0'
 # =>  Use postgresql as the database for Active Record
 gem 'pg'
 
+# => Use devise as management of user object https://github.com/plataformatec/devise
+gem 'devise', git: "git://github.com/plataformatec/devise.git"
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

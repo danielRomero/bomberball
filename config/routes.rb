@@ -1,4 +1,5 @@
 Bomberball::Application.routes.draw do
+  devise_for :users
   root 'landing#index'
 
   get 'users/login_beperk' =>'users#login_beperk', as: :login_beperk

@@ -13,6 +13,17 @@ GIT
       jquery-rails
       rails
 
+GIT
+  remote: git://github.com/plataformatec/devise.git
+  revision: 3232d14b20da4a596f2c0ff31b8a9ac0a529322e
+  specs:
+    devise (3.1.0.rc2)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -42,6 +53,7 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.0)
     atomic (1.1.10)
+    bcrypt-ruby (3.1.1)
     builder (3.1.4)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -88,6 +100,7 @@ GEM
       multi_json (~> 1.0)
       multi_xml (~> 0.5)
       rack (~> 1.2)
+    orm_adapter (0.4.0)
     pg (0.16.0)
     polyglot (0.3.3)
     rack (1.5.2)
@@ -146,12 +159,15 @@ GEM
     uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    warden (1.2.3)
+      rack (>= 1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
+  devise!
   font-awesome-rails!
   haml (~> 4.0.3)
   jbuilder (~> 1.2)
