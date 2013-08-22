@@ -152,9 +152,14 @@ class UsersController < ApplicationController
 	    	access_token = request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])
 	      tw_user_request = access_token.get('https://api.twitter.com/1.1/account/verify_credentials.json')
 	      tw_user = JSON.parse(tw_user_request.body).to_hash
+	      social_link = 'https://twitter.com/'+tw_user['screen_name'].to_s
+	      
 
 	      # AQUI TENEMOS AL USUARIO
 	      if((user = User.where(:email => session[:twitter_email])) and !user.blank?)
+	      	logger.debug 'YA REGISTRADO'
+	      	logger.debug user.inspect
+
 					# => ya registrado
 					social_signed = false
 					for social in user.socials
@@ -165,10 +170,15 @@ class UsersController < ApplicationController
 						end
 					end
 					if (!social_signed)
+						logger.debug 'NO SOCIAL'
+	      		logger.debug user.socials.inspect
+
 						social = user.socials.create(:social_id => tw_user['id_str'], :sn_type => 'twitter', :name => tw_user['name'], :avatar_url => tw_user['profile_image_url'],:social_link => social_link)
 						location = user.locations.create(:location => tw_user['location'])
 						# REGISTRADO!
 					else
+						logger.debug 'YA REGISTRADO y YA SOCIAL'
+	      		logger.debug user.socials.inspect
 						# => ya tiene esta red social
 						# REGISTRADO!
 						redirect_to root_path
@@ -176,20 +186,33 @@ class UsersController < ApplicationController
 				else
 					# => es un usuario nuevo
 					begin
+						logger.debug 'USUARIO NUEVO'
 
 						user = User.create(:email => session[:twitter_email],:name => tw_user['name'],:avatar_url => tw_user['profile_image_url'])
+						logger.debug user.inspect
 						
+						logger.debug 'PROFILE NUEVO'
+
 						profile = Profile.create(:user_id=>user.id)
+						logger.debug profile.inspect
+
+						logger.debug 'SOCIAL NUEVO'
 
 						social = user.socials.create(:social_id => tw_user['id_str'], :sn_type => 'twitter', :name => tw_user['name'], :avatar_url => tw_user['profile_image_url'],:social_link => social_link)
-						
+						logger.debug social.inspect
+					
+						logger.debug 'LOCATION NUEVO'
+
 						location = user.locations.create(:location => tw_user['location'])
+						logger.debug location.inspect
 
 						#Usuario registrado con exito
 						# REGISTRADO!
 						redirect_to root_path
 
 					rescue Exception => e
+						logger.debug 'ERROR QUE TE CAGAS'+e.message
+
 						logger.debug 'Error en el login de usuario'+e.backtrace.inspect
 						redirect_to root_path
 					end
@@ -244,7 +267,12 @@ class UsersController < ApplicationController
 				begin
 
 					user = User.create(:email => response['email'],:name => response['given_name'],:avatar_url => response['picture'])
-					
+					# lOGUEA AL USUARIO
+					sign_in(user)
+					logger.debug 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+					# DEVUELVE AL USUARIO
+					logger.debug current_user.inspect
+					raise current_user.inspect
 					profile = Profile.create(:user_id=>user.id)
 
 					social = user.socials.create(:social_id => response['id'], :sn_type => 'google', :name => response['given_name'],:avatar_url => response['picture'],:social_link=>response['link'])
