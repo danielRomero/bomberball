@@ -1,5 +1,17 @@
 class UsersController < ApplicationController
 
+	def user_sign_out
+		#begin
+		sign_out()
+			#redirect_to root_path
+		# rescue Exception => e
+		# 	raise e.inspect
+		# 	raise 'ERROR 404'.inspect
+		# end
+		logger.debug current_user.inspect
+		redirect_to root_path
+	end
+
 	def login_beperk
 		# con beperk no tenemos location, podemos pero paso de pedirlo, me da pereza
 		require 'oauth2'
@@ -244,7 +256,7 @@ class UsersController < ApplicationController
       response = token.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json', :params => { 'query_foo' => 'bar' })
       response = response.parsed
       # AQUI TENEMOS AL USUARIO
-      if((user = User.where(:email => response['email'])) and !user.blank?)
+      if((user = User.where(:email => response['email']).first) and !user.blank?)
 				# => ya registrado
 				social_signed = false
 				for social in user.socials
@@ -257,11 +269,9 @@ class UsersController < ApplicationController
 				if (!social_signed)
 					social = user.socials.create(:social_id => response['id'], :sn_type => 'google', :name => response['given_name'],:avatar_url => response['picture'],:social_link=>response['link'])
 					# REGISTRADO!
-				else
-					# => ya tiene esta red social
-					# REGISTRADO!
-					redirect_to root_path
 				end
+				sign_in(user)
+
 			else
 				# => es un usuario nuevo
 				begin
@@ -269,24 +279,25 @@ class UsersController < ApplicationController
 					user = User.create(:email => response['email'],:name => response['given_name'],:avatar_url => response['picture'])
 					# lOGUEA AL USUARIO
 					sign_in(user)
-					logger.debug 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+					
 					# DEVUELVE AL USUARIO
-					logger.debug current_user.inspect
-					raise current_user.inspect
+					
+					#raise current_user.inspect
 					profile = Profile.create(:user_id=>user.id)
 
 					social = user.socials.create(:social_id => response['id'], :sn_type => 'google', :name => response['given_name'],:avatar_url => response['picture'],:social_link=>response['link'])
 
 					#Usuario registrado con exito
 					# REGISTRADO!
-					redirect_to root_path
+					
 
 				rescue Exception => e
 					logger.debug 'Error en el login de usuario'+e.backtrace.inspect
-					redirect_to root_path
+					
 				end
 				
 			end
+			redirect_to root_path
     else
       if !params[:denied]
         redirect_to firstUrl =  client.auth_code.authorize_url(:redirect_uri => callbackUrl, :scope => 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email', :access_type => "offline", :approval_prompt => 'force')

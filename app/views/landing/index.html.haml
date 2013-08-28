@@ -1,28 +1,4 @@
 .landing
-	.header.row
-		%nav.navbar.navbar-default.navbar-fixed-top{:role=>'navigation'}
-			.container.col-lg-6.col-md-6.col-lg-offset-3.col-md-offset-3
-				.navbar-header
-					%button{:type=>"button", :class=>"navbar-toggle", 'data-toggle'=>"collapse", 'data-target'=>".navbar-ex1-collapse"}
-						%span.icon-bar
-						%span.icon-bar
-						%span.icon-bar
-					=link_to 'Bomberball','',:class=>'navbar-brand',:onclick=>"$('html, body').animate({scrollTop:$('.landing').position().top},'slow')"
-				.collapse.navbar-collapse.navbar-ex1-collapse
-					%ul.nav.navbar-nav.pull-right
-						%li
-							= link_to "How it works",'#how_works',:onclick=>"$('html, body').animate({scrollTop:$('#how_works').position().top - 50},'slow')"
-						%li
-							= link_to "Devices",'#devices',:onclick=>"$('html, body').animate({scrollTop:$('#devices').position().top - 50},'slow')"
-						%li
-							= link_to "About Me",'#about',:onclick=>"$('html, body').animate({scrollTop:$('#about').position().top - 50},'slow')"
-						%li							
-							= link_to('#login_modal','data-toggle'=>'modal') do
-								.icon-caret-right{:style=>'float:left;color:#EE6162;padding-right:5px;line-height: 18px;'}
-								="Play now"
-	-# fin header
-	-# cita
-
 	.content_title_1#bomberman_title
 		%h2.text-center.active='"It looks like a classic Bomberman game"'
 		%h2.text-center='"It looks like a classic Bomberman game1"'
@@ -53,7 +29,60 @@
 								%p='Enter with your favorite social network.'
 					.content_box.col-lg-6.col-md-6.col-xs-12.col-sm-12
 						.box{:style=>'height:300px;'}
-							='Aqui va Imagen de Personalize your bombardier.'
+							.social_actions.canvas_personalizes
+								%canvas#canvas_personalize{:width=>'205px'}
+									:javascript
+										var x = 105;
+										var y = 40;
+										var width = 40;
+										var height = 40;
+										var animation1=0;
+										function dibujar(){
+											$("#canvas_personalize").clearCanvas();
+											$("#canvas_personalize").drawEllipse({
+											  fillStyle: "#c33",
+											  x: x, y: y+animation1,
+											  width: width, height: height,
+											}).drawEllipse({
+											  fillStyle: "#000",
+											  x:(x-parseInt(width/4)) , y:(y-parseInt(height/6))+animation1,
+											  width: parseInt(width*0.2), height: parseInt(height*0.3),
+											}).drawEllipse({
+											  fillStyle: "#000",
+											  x:(x+parseInt(width/4)) , y:(y-parseInt(height/6))+animation1,
+											  width: parseInt(width*0.2), height: parseInt(height*0.3),
+											}).drawEllipse({
+											  fillStyle: "green",
+											  x: x, y: y+height+height/2,
+											  width: (width*2)+animation1,
+											  height: (height*2)-animation1
+											}).drawEllipse({
+											  fillStyle: "red",
+											  x: parseInt(x+width/1.1), y: parseInt((y+(height/2)+height/3)+(animation1/2)),
+											  width: parseInt(width*0.2),
+											  height: parseInt(height*0.2)
+											}).drawEllipse({
+											  fillStyle: "red",
+											  x: parseInt(x-width/1.1), y: parseInt((y+(height/2)+height/3)-(animation1/2)),
+											  width: parseInt(width*0.2),
+											  height: parseInt(height*0.2)
+											}).drawEllipse({
+											  fillStyle: "black",
+											  x: parseInt((x+width/1.4)+(animation1/2)), y: parseInt(y+height/2+height*1.9),
+											  width: parseInt(width*0.2),
+											  height: parseInt(height*0.2)
+											}).drawEllipse({
+											  fillStyle: "black",
+											  x: parseInt((x-width/1.4)-(animation1/2)),  y: parseInt(y+height/2+height*1.9),
+											  width: parseInt(width*0.2),
+											  height: parseInt(height*0.2)
+											});
+
+											animation1=1;
+
+										}
+										dibujar();
+
 							.caption
 								%h3='Step 2'
 								%p='Personalize your bombardier.'

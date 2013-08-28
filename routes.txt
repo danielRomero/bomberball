@@ -1,0 +1,8 @@
+            Prefix Verb   URI Pattern                     Controller#Action
+              root GET    /                               landing#index
+      login_beperk GET    /users/login_beperk(.:format)   users#login_beperk
+     login_twitter GET    /users/login_twitter(.:format)  users#login_twitter
+login_twitter_post POST   /users/login_twitter(.:format)  users#login_twitter
+      login_google GET    /users/login_google(.:format)   users#login_google
+    login_facebook GET    /users/login_facebook(.:format) users#login_facebook
+     user_sign_out DELETE /users/sign_out(.:format)       users#user_sign_out

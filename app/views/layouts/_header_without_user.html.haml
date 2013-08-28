@@ -1,0 +1,21 @@
+.header.row
+	%nav.navbar.navbar-default.navbar-fixed-top{:role=>'navigation'}
+		.container.col-lg-6.col-md-6.col-lg-offset-3.col-md-offset-3
+			.navbar-header
+				%button{:type=>"button", :class=>"navbar-toggle", 'data-toggle'=>"collapse", 'data-target'=>".navbar-ex1-collapse"}
+					%span.icon-bar
+					%span.icon-bar
+					%span.icon-bar
+				=link_to 'Bomberball','',:class=>'navbar-brand',:onclick=>"$('html, body').animate({scrollTop:$('.landing').position().top},'slow')"
+			.collapse.navbar-collapse.navbar-ex1-collapse
+				%ul.nav.navbar-nav.pull-right
+					%li
+						= link_to "How it works",'#how_works',:onclick=>"$('html, body').animate({scrollTop:$('#how_works').position().top - 50},'slow')"
+					%li
+						= link_to "Devices",'#devices',:onclick=>"$('html, body').animate({scrollTop:$('#devices').position().top - 50},'slow')"
+					%li
+						= link_to "About Me",'#about',:onclick=>"$('html, body').animate({scrollTop:$('#about').position().top - 50},'slow')"
+					%li							
+						= link_to('#login_modal','data-toggle'=>'modal') do
+							.icon-caret-right{:style=>'float:left;color:#EE6162;padding-right:5px;line-height: 18px;'}
+							="Play now"

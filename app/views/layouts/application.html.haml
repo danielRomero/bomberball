@@ -11,5 +11,8 @@
 		= csrf_meta_tags
 		= favicon_link_tag 'favicon.ico'
 	%body.tfg
-
+		-if (current_user)
+			=render :partial => 'layouts/header_with_user'
+		-else
+			=render :partial => 'layouts/header_without_user'
 		= yield

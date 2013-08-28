@@ -1,116 +1,105 @@
 // Place all the styles related to the landing controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.landing{
-	.header{
-		.navbar{
-			margin-bottom: 0;
-			padding-left: 0;
-			padding-right: 0;
-			background: none;
-			border:none;
-			background-color: #2E3138 !important;
-			box-shadow: 0px 5px 5px #060606;
-			-moz-box-shadow: 0px 5px 5px #060606;
-			-webkit-box-shadow: 0px 5px 5px #060606;
-			a{
-				text-shadow:none;
+.tfg{
+	.landing{
+		.content_title_1{
+			padding: 45px 0 5px 0;
+			color: #DADADB;
+			background-color: #25262B;
+			h2{
+				display:none;
 			}
-			a:hover{
-				color: #DADADB;
-			}
-			.container{
-				border-top: 4px solid #EE6162;
-				padding-left: 0;
-				padding-right: 0;
+			h2.active{
+				display:block;
 			}
 		}
-	}
-	.content_title_1{
-		padding: 45px 0 5px 0;
-		color: #DADADB;
-		background-color: #25262B;
-		h2{
-			display:none;
-		}
-		h2.active{
-			display:block;
-		}
-		
-		
-	}
-	.content_title_2{
-		padding: 30px 0 40px 0;
-		//background-color: #797F8D;
-		background: url("bg.png") repeat scroll 0 0 #2A2A2A;
-    //color: #888888;
-    color:#DADADB;
-		-webkit-box-shadow:  -5px 0px 5px 5px #060606;   
-    box-shadow:  -5px 0px 5px 5px #060606;
-    .content_box{
-    	padding:20px;
-    	.box{
-    		margin:0 auto;
-    		width:250px;
-    		border:2px solid #25262B;
-    		border-radius: 10px;
-    		padding:20px;
-    		background-color: #2E3138;
-    		opacity: .6;
-	  		.social_actions{
-	  			a{
-		  			font-size: 57px;
-		  			color:#DADADB;
-		  			.icon:hover{
-		  				opacity: .6;
-		  				cursor: pointer;
+		.content_title_2{
+			padding: 30px 0 40px 0;
+			//background-color: #797F8D;
+			background: url("bg.png") repeat scroll 0 0 #2A2A2A;
+	    //color: #888888;
+	    color:#DADADB;
+			-webkit-box-shadow:  -5px 0px 5px 5px #060606;   
+	    box-shadow:  -5px 0px 5px 5px #060606;
+	    .content_box{
+	    	padding:20px;
+	    	.box{
+	    		margin:0 auto;
+	    		width:250px;
+	    		border:2px solid #25262B;
+	    		border-radius: 10px;
+	    		padding:20px;
+	    		background-color: #2E3138;
+	    		opacity: .6;
+	    		position:relative;
+		  		.social_actions{
+		  			a{
+			  			font-size: 57px;
+			  			color:#DADADB;
+			  			.icon:hover{
+			  				opacity: .6;
+			  				cursor: pointer;
+			  			}
 		  			}
+		  			.icon-play{
+		  				display:none;
+		  				position:absolute;
+		  				right: 50%;
+		  				top: 35%;
+		  			}
+		  		}
+		  		.canvas_personalize:hover{
+		  			cursor:pointer;
+	  				.icon-play{
+	  					display:block;
+	  				}
 	  			}
-	  		} 
-	  	}
-	  	.box:hover{
-  			opacity: 1;
-  		}
-	  }
-  	
-	}
-	.content_title_3{
-		padding: 40px 0 60px 0;
-		background-color: #454753;
-		text-shadow: 1px 1px  #3C3C3C;
-		.devices{
-			padding-top: 35px;
-			.row{
-				.device{
-					display:block;
-					margin: 0 auto;
-					font-size: 100px;
+		  	}
+		  	.box:hover{
+	  			opacity: 1;
+	  		}
+		  }
+	  	
+		}
+		.content_title_3{
+			padding: 40px 0 60px 0;
+			background-color: #454753;
+			text-shadow: 1px 1px  #3C3C3C;
+			.devices{
+				padding-top: 35px;
+				.row{
+					.device{
+						display:block;
+						margin: 0 auto;
+						font-size: 100px;
+					}
 				}
 			}
 		}
-	}
-	.content_title_4{
-		padding: 50px 0 50px 0;
-		background-color:#24252A;
-		-webkit-box-shadow:  -5px 0px 5px 5px #060606;   
-    box-shadow:  -5px 0px 5px 5px #060606;
-    .title{
-   	 color:#EE6162;
-   	 padding-bottom: 40px;
-  	}
-  	.caption{
-  		color: #DADADB;
-  	}
-  	.image_profile{
-  		margin-top: 15px;
-  	}
-	}
-
-	.modal-body{
-		text-align: center;	
-		.icon{
-			font-size: 57px; 
+		.content_title_4{
+			padding: 50px 0 50px 0;
+			background-color:#24252A;
+			-webkit-box-shadow:  -5px 0px 5px 5px #060606;   
+	    box-shadow:  -5px 0px 5px 5px #060606;
+	    .title{
+	   	 color:#EE6162;
+	   	 padding-bottom: 40px;
+	  	}
+	  	.caption{
+	  		color: #DADADB;
+	  	}
+	  	.image_profile{
+	  		margin-top: 15px;
+	  	}
 		}
-	}
 
+		.modal-body{
+			text-align: center;	
+			.icon{
+				font-size: 57px; 
+			}
+		}
+
+	}	
 }
