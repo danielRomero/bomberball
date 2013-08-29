@@ -10,8 +10,12 @@ Bomberball::Application.routes.draw do
   get 'users/login_google' =>'users#login_google', as: :login_google
   get 'users/login_facebook' =>'users#login_facebook', as: :login_facebook
   delete 'users/sign_out' => 'users#user_sign_out', as: :user_sign_out
+  
+
 
   resources :games
+  resources :users
+  resources :privacy_license_and_terms
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,4 +1,10 @@
 class UsersController < ApplicationController
+	
+	before_filter :login_required, :only => [:show,:user_sign_out]
+
+	def show
+		@user = current_user
+	end
 
 	def user_sign_out
 		#begin
@@ -297,7 +303,7 @@ class UsersController < ApplicationController
 				end
 				
 			end
-			redirect_to games_path
+			redirect_to user_path(user.id)
     else
       if !params[:denied]
         redirect_to firstUrl =  client.auth_code.authorize_url(:redirect_uri => callbackUrl, :scope => 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email', :access_type => "offline", :approval_prompt => 'force')
