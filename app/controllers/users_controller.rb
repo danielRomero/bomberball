@@ -297,7 +297,7 @@ class UsersController < ApplicationController
 				end
 				
 			end
-			redirect_to root_path
+			redirect_to games_path
     else
       if !params[:denied]
         redirect_to firstUrl =  client.auth_code.authorize_url(:redirect_uri => callbackUrl, :scope => 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email', :access_type => "offline", :approval_prompt => 'force')

@@ -16,5 +16,6 @@
 				=render :partial => 'layouts/header_with_user'
 			-else
 				=render :partial => 'layouts/header_without_user'
-		%section
+		-# padding because header min-height of 50 px
+		%section{:style=>'padding-top:50px'}
 			= yield
