@@ -23,9 +23,9 @@
 			background: none;
 			border:none;
 			background-color: #2E3138 !important;
-			box-shadow: 0px 5px 5px #060606;
-			-moz-box-shadow: 0px 5px 5px #060606;
-			-webkit-box-shadow: 0px 5px 5px #060606;
+			box-shadow: 0px 2px 2px #060606;
+			-moz-box-shadow: 0px 2px 2px #060606;
+			-webkit-box-shadow: 0px 2px 2px #060606;
 			a{
 				text-shadow:none;
 			}
@@ -37,31 +37,20 @@
 				padding-left: 0;
 				padding-right: 0;
 			}
-			.navbar-header.with_user{
-				margin:0;
-				width:100%;
+			.user_name{
+				height: 50px;
+				line-height: 50px;
+				width: 70%;
 				font-size: 18px;
-
 				a{
-					color: white !important;
+					color:#777777;
 				}
 				a:hover{
-					color: #DADADB !important;
+					color:#DADADB;
 				}
-
-				.avatar_icon{
-					float:right;
-				}
-				.user_name{
-					text-align: center;
-					height: 50px;
-					line-height: 50px;
-				}
-				.application_title_header{
-					float:left;
-					height: 50px;
-					line-height: 50px;
-				}		
+			}
+			.icon-cog{
+				font-size: 18px;
 			}
 		}
 	}

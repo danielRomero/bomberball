@@ -1,4 +1,4 @@
-!!!
+!!! 5
 %html
 	%head
 		%meta{:charset => "utf-8"}
@@ -11,8 +11,10 @@
 		= csrf_meta_tags
 		= favicon_link_tag 'favicon.ico'
 	%body.tfg
-		-if (current_user)
-			=render :partial => 'layouts/header_with_user'
-		-else
-			=render :partial => 'layouts/header_without_user'
-		= yield
+		%header
+			-if (current_user)
+				=render :partial => 'layouts/header_with_user'
+			-else
+				=render :partial => 'layouts/header_without_user'
+		%section
+			= yield

@@ -11,6 +11,7 @@
 			.col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-xs-12.col-sm-12
 				.title{:style=>'padding-bottom:15px;'}
 					%h2.text-center='Start easy!'
+					=link_to 'games path', games_path
 				.row.text-center
 					.content_box.col-lg-6.col-md-6.col-xs-12.col-sm-12
 						.box
@@ -30,7 +31,7 @@
 					.content_box.col-lg-6.col-md-6.col-xs-12.col-sm-12
 						.box{:style=>'height:300px;'}
 							.social_actions.canvas_personalizes
-								%canvas#canvas_personalize{:width=>'205px'}
+								%canvas#canvas_personalize{:width=>'205'}
 									:javascript
 										var x = 105;
 										var y = 40;
@@ -129,13 +130,13 @@
 						%h4='Me social'
 						%p
 							='View this project on '
-							=link_to ' GitHub ','https://github.com/danielRomero' ,:target => '_brank' ,:class=>'icon-github'
+							=link_to ' GitHub ','https://github.com/danielRomero' ,:target => '_blank' ,:class=>'icon-github'
 						%p
 							='Follow me '
-							=link_to '','https://twitter.com/DanielRomeroE' ,:target => '_brank' ,:class=>'icon-twitter'
+							=link_to '','https://twitter.com/DanielRomeroE' ,:target => '_blank' ,:class=>'icon-twitter'
 						%p
 							='Link to me '
-							=link_to '','http://www.linkedin.com/pub/daniel-romero-esteban/72/1a/b29' ,:target => '_brank' ,:class=>'icon-linkedin'
+							=link_to '','http://www.linkedin.com/pub/daniel-romero-esteban/72/1a/b29' ,:target => '_blank' ,:class=>'icon-linkedin'
 
 					.col-lg-6.col-md-6.col-xs-12.col-sm-12.text-center
 						=image_tag('http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/6/000/265/3e6/0426659.jpg',:alt=>'Daniel Romero Esteban',:class=>'image_profile')
@@ -187,19 +188,19 @@
 								.icon-li.icon-ok
 								='MVC'
 					%br
-						-#footer
-						%hr{:style=>'clear:both;'}
-						.footer
-							%small
-								.icon-html5
-								.icon-css3
-							
-								='2013 Daniel Romero Esteban'
-								=link_to('http://creativecommons.org/licenses/by-nc-nd/3.0/deed.es',:rel=>'license',:target=>'_blank') do
-									=image_tag('http://i.creativecommons.org/l/by-nc-nd/3.0/80x15.png', :alt=>'Licencia Creative Commons', :style=>'border-width:0')
-								='Esta obra está bajo una'
-								=link_to('http://creativecommons.org/licenses/by-nc-nd/3.0/deed.es',:rel=>'license',:target=>'_blank') do
-									='Licencia Creative Commons Atribución-NoComercial-SinDerivadas 3.0 Unported'							
+					-#footer
+					%hr{:style=>'clear:both;'}
+					.footer
+						%small
+							%i.icon-html5
+							%i.icon-css3
+						
+							='2013 Daniel Romero Esteban'
+							=link_to('http://creativecommons.org/licenses/by-nc-nd/3.0/deed.es',:rel=>'license',:target=>'_blank') do
+								=image_tag('http://i.creativecommons.org/l/by-nc-nd/3.0/80x15.png', :alt=>'Licencia Creative Commons', :style=>'border-width:0')
+							='Esta obra está bajo una'
+							=link_to('http://creativecommons.org/licenses/by-nc-nd/3.0/deed.es',:rel=>'license',:target=>'_blank') do
+								='Licencia Creative Commons Atribución-NoComercial-SinDerivadas 3.0 Unported'							
 							
 	-# MODAL WINDOW
 	.modal.fade#login_modal

@@ -1,5 +1,7 @@
 Bomberball::Application.routes.draw do
+  
   devise_for :users
+  
   root 'landing#index'
 
   get 'users/login_beperk' =>'users#login_beperk', as: :login_beperk
@@ -8,6 +10,8 @@ Bomberball::Application.routes.draw do
   get 'users/login_google' =>'users#login_google', as: :login_google
   get 'users/login_facebook' =>'users#login_facebook', as: :login_facebook
   delete 'users/sign_out' => 'users#user_sign_out', as: :user_sign_out
+
+  resources :games
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
