@@ -10,6 +10,8 @@ Bomberball::Application.routes.draw do
   get 'users/login_google' =>'users#login_google', as: :login_google
   get 'users/login_facebook' =>'users#login_facebook', as: :login_facebook
   delete 'users/sign_out' => 'users#user_sign_out', as: :user_sign_out
+
+  get 'landing/about_me' => 'landing#about_me', as: :about_me
   
 
 

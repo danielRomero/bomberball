@@ -19,6 +19,41 @@
      		background-color: #EEEEEE;
      		height:400px;
      		margin-bottom: 30px;
+     		padding:10px;
+     		.title{
+     			text-align: center;
+     		}
+     		.social_profile{
+     			text-align: center;
+     			.avatar_placeholder{
+     				padding-top:10px;
+	     		}
+	     		.avatar_chooser{
+	     			padding-top:10px;
+	     		}
+	     		.name_placeholder{
+	     			padding-top:10px;
+	     		}
+	     		.name_chooser{
+	     			padding-top:10px;	
+	     		}
+     		}
+     		.colours_picker{
+     			padding-top: 10px;
+     			canvas{
+     				background-color: #2B2B2B;
+     				border-radius: 10px;
+     				padding: 10px 0;
+     				margin: 10px 0 10px 5px;
+     			}
+					.bombardier{
+     				padding-left:0px;
+     			}
+	     		.bomb{
+	     			
+	     		}
+     		}
+     		
 			}
 		}
 		footer{

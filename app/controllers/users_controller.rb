@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
 	def show
 		@user = current_user
+		@socials = current_user.socials
 	end
 
 	def user_sign_out

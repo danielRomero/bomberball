@@ -20,4 +20,11 @@
 		%section{:style=>'padding-top:50px'}
 			= yield
 		%footer
-			=link_to 'TOS', privacy_license_and_terms_path
+			.separator{:style=>'min-height:1px;border:1px solid #626262;width:100%;'}
+			.row
+				.col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-xs-12.col-sm-12
+					.row
+						.col-lg-6.col-md-6.col-xs-12.col-sm-12
+							=link_to 'Terms and license, data usage, cookies policy', privacy_license_and_terms_path,:target=>'_blank',:class=>'cool_anchor'
+						.col-lg-6.col-md-6.col-xs-12.col-sm-12
+							=link_to 'Created by Daniel Romero', about_me_path, :target=>'_blank',:class=>'cool_anchor'

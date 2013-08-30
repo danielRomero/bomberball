@@ -13,7 +13,7 @@
 					%h2.text-center='Start easy!'
 				.row.text-center
 					.content_box.col-lg-6.col-md-6.col-xs-12.col-sm-12
-						.box
+						.box{:style=>'height:380px;'}
 							.social_actions
 								=link_to(login_facebook_path) do
 									.icon-facebook-sign.icon
@@ -27,8 +27,11 @@
 							.caption
 								%h3='Step 1'
 								%p='Enter with your favorite social network.'
+							%hr
+							%h6
+								=link_to 'Terms and license, data usage, cookies policy', privacy_license_and_terms_path,:target=>'_blank',:class=>'cool_anchor'
 					.content_box.col-lg-6.col-md-6.col-xs-12.col-sm-12
-						.box{:style=>'height:300px;'}
+						.box{:style=>'height:380px;'}
 							.social_actions.canvas_personalizes
 								%canvas#canvas_personalize{:width=>'205'}
 									:javascript
@@ -86,13 +89,19 @@
 							.caption
 								%h3='Step 2'
 								%p='Personalize your bombardier.'
+							%hr
+							%h6
+								='some text here because simetry is important in this boxes'
 					%div{:style=>'clear:both'}
 					.content_box.col-lg-12.col-md-12.col-xs-12.col-sm-12
-						.box{:style=>'height:300px;'}
+						.box{:style=>'height:380px;'}
 							='Aquí va Imagen de Play with your friends.'
 							.caption
 								%h3='Step 3'
 								%p='Play with your friends.'
+							%hr
+							%h6
+								='some text here because simetry is important in this boxes'
 
 	-# fin cajas
 	%div{:style=>'height:1px;width:100%;color:#2E3138;'}
@@ -114,78 +123,7 @@
 							.device.icon-desktop
 	-# fin devices
 	-# about
-	.content_title_4#about
-		.row
-			.col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-xs-12.col-sm-12
-				.title					
-					%h3.text-center='Daniel Romero Esteban'
-				.caption
-					%h4='Hi everybody!'
-					%p
-						="I am graduate on Information Systems by University of Alcalá and now I am web developer at"
-						=link_to('Beperk.com','http://www.beperk.com',:target=>'_blank')					
-					
-					.col-lg-6.col-md-6.col-xs-12.col-sm-12{:style=>'margin-left:0; padding-left:0;'}
-						%h4='Me social'
-						%p
-							='View this project on '
-							=link_to ' GitHub ','https://github.com/danielRomero' ,:target => '_blank' ,:class=>'icon-github'
-						%p
-							='Follow me '
-							=link_to '','https://twitter.com/DanielRomeroE' ,:target => '_blank' ,:class=>'icon-twitter'
-						%p
-							='Link to me '
-							=link_to '','http://www.linkedin.com/pub/daniel-romero-esteban/72/1a/b29' ,:target => '_blank' ,:class=>'icon-linkedin'
-
-					.col-lg-6.col-md-6.col-xs-12.col-sm-12.text-center
-						=image_tag('http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/6/000/265/3e6/0426659.jpg',:alt=>'Daniel Romero Esteban',:class=>'image_profile')
-
-					
-					.col-lg-12.col-md-12.col-xs-12.col-sm-12{:style=>'margin-left:0; padding-left:0;'}
-						%h4='About this project'
-						%p='Bomberball is the name of this application which is my TFG (final degree project).'
-						%p="It's written on Ruby using the Ruby on Rails framewework."
-						%p='More technical details:'
-					.col-lg-6.col-md-6.col-xs-6.col-sm-6{:style=>'padding-left:0'}
-						%ul.icons-ul{:style=>'margin-left:0'}
-							%li{:style=>'font-weight: bold;padding-bottom:5px;'}
-								.icon-li.icon-camera-retro
-								='Front-end'
-							%li
-								.icon-li.icon-ok
-								='CoffeeScript'
-							%li
-								.icon-li.icon-ok
-								='SASS'
-							%li
-								.icon-li.icon-ok
-								='Haml'
-							%li
-								.icon-li.icon-ok
-								='jCanvas'
-							%li
-								.icon-li.icon-ok
-								='Bootstrap'
-							%li
-								.icon-li.icon-ok
-								='Font Awesome'
-					.col-lg-6.col-md-6.col-xs-6.col-sm-6{:style=>'padding-left:0'}
-						%ul.icons-ul{:style=>'margin-left:0'}
-							%li{:style=>'font-weight: bold;padding-bottom:5px;'}
-								.icon-li.icon-gears
-								='Back-end'
-							%li
-								.icon-li.icon-ok
-								='PostgreSQL'
-							%li
-								.icon-li.icon-ok
-								='Ruby on Rails'
-							%li
-								.icon-li.icon-ok
-								='Active Record'
-							%li
-								.icon-li.icon-ok
-								='MVC'
+	=render :partial => 'landing/about_me'
 	-# MODAL WINDOW
 	.modal.fade#login_modal
 		.modal-dialog
@@ -203,18 +141,24 @@
 							.icon-google-plus-sign.icon
 						=link_to(login_beperk_path) do
 							.beperk-icon-enso_box.icon{:style=>'font-size: 52px; line-height:50px;'}
+					%hr
+					%h6
+						=link_to 'Terms and license, data usage, cookies policy', privacy_license_and_terms_path,:target=>'_blank',:class=>'cool_anchor_dark'
 	-# MODAL WINDOW request twitter email
 	.modal.fade#twitter_email
 		.modal-dialog
 			.modal-content
 				.modal-header
 					%button.close{:type=>'button','data-dismiss'=>'modal', 'aria-hidden'=>'true'}='x'
-					%h4.modal-title='With Twitter put your email address'
+					%h4.modal-title='With Twitter we need your email address'
 				.modal-body
 					=form_tag(login_twitter_post_path,:class=>'form-inline',:role=>'form') do
 						.form-group
 							=email_field('twitter_email','',:required=>'required',:class=>'form-control',:placeholder=>'example@email.com')
 						=submit_tag('Submit',:id=>'twitter_email_submit',:class=>'btn btn-primary')
+						%hr
+						%h6
+							=link_to 'Terms and license, data usage, cookies policy', privacy_license_and_terms_path,:target=>'_blank',:class=>'cool_anchor_dark'
 	:javascript
 		$(document).ready(function() {
 			$('#twitter_email').draggable();

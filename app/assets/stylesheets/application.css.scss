@@ -6,6 +6,9 @@
  
  
 .tfg{
+	footer{
+		background-color: #24252A;
+	}
 	a:hover {
 	 text-decoration: none !important
 	}
@@ -15,6 +18,20 @@
 	a {
 	 text-decoration: none !important
 	}
+	
+	a.cool_anchor{
+		color:#777777;
+	}
+	a.cool_anchor:hover{
+		color:#DADADB;
+	}
+	a.cool_anchor_dark{
+		color:#777777;
+	}
+	a.cool_anchor_dark:hover{
+		color:#2E3138;
+	}
+	
 	.header{
 		.navbar{
 			margin-bottom: 0;
