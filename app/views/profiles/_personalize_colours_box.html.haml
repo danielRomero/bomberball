@@ -1,0 +1,108 @@
+.box
+	.title
+		%h4
+			='Choose your colours'
+	.colours_picker.row
+		=form_for @user.profile, :remote=>'true' do |f|
+			.content_box.col-lg-6.col-md-6.col-xs-6.col-sm-6.bomb.text-center
+				='Bomb'
+				=render :partial => 'profiles/personalize_bomb_canvas'
+				
+				.colours_select
+					=f.hidden_field :bomb_color
+					.element_to_change#bomb_colour_picker_container
+						='Bomb color'
+						%div#bomb_color_picker
+							%select{:name=>'bomb_color'}
+								%option{:value=>'FF0000'}
+								%option{:value=>'0B0B61'}
+								%option{:value=>'088A08'}
+								%option{:value=>'B4045F'}
+								%option{:value=>'DF7401'}
+								%option{:value=>'000000'}
+							:javascript
+								jQuery('#bomb_color_picker').colourPicker();
+
+			.content_box.col-lg-6.col-md-6.col-xs-6.col-sm-6.bombardier.text-center
+				='Bombardier'
+				=render :partial => 'profiles/personalize_bombardier_canvas'
+				
+				.colours_select
+					=f.hidden_field :head_color
+					.element_to_change#head_color_picker_container
+						='Head color'
+						%div#head_color_picker
+							%select{:name=>'head_color'}
+								%option{:value=>'FF0000'}
+								%option{:value=>'0B0B61'}
+								%option{:value=>'088A08'}
+								%option{:value=>'B4045F'}
+								%option{:value=>'DF7401'}
+								%option{:value=>'000000'}
+							:javascript
+								jQuery('#head_color_picker').colourPicker();
+					=f.hidden_field :body_color
+					.element_to_change#body_color_picker_container
+						='Body color'
+						%div#body_color_picker
+							%select{:name=>'body_color'}
+								%option{:value=>'FF0000'}
+								%option{:value=>'0B0B61'}
+								%option{:value=>'088A08'}
+								%option{:value=>'B4045F'}
+								%option{:value=>'DF7401'}
+								%option{:value=>'000000'}
+							:javascript
+								jQuery('#body_color_picker').colourPicker();
+					=f.hidden_field :eyes_color
+					.element_to_change#eyes_color_picker_container
+						='Eyes color'
+						%div#eyes_color_picker
+							%select{:name=>'eyes_color'}
+								%option{:value=>'FF0000'}
+								%option{:value=>'0B0B61'}
+								%option{:value=>'088A08'}
+								%option{:value=>'B4045F'}
+								%option{:value=>'DF7401'}
+								%option{:value=>'000000'}
+							:javascript
+								jQuery('#eyes_color_picker').colourPicker();
+					=f.hidden_field :limbs_color
+					.element_to_change#limbs_color_picker_container
+						='Limbs color'
+						%div#limbs_color_picker
+							%select{:name=>'limbs_color'}
+								%option{:value=>'FF0000'}
+								%option{:value=>'0B0B61'}
+								%option{:value=>'088A08'}
+								%option{:value=>'B4045F'}
+								%option{:value=>'DF7401'}
+								%option{:value=>'000000'}
+							:javascript
+								jQuery('#limbs_color_picker').colourPicker();
+		
+:javascript
+	$('#head_color_picker_container').find('input').change(function(){
+		$('#profile_head_color').val('#'+$(this).val());
+		$(this).closest('form').submit();
+	});
+
+	$('#bomb_colour_picker_container').find('input').change(function(){
+		$('#profile_bomb_color').val('#'+$(this).val());
+		$(this).closest('form').submit();
+	});
+
+	$('#body_color_picker_container').find('input').change(function(){
+		$('#profile_body_color').val('#'+$(this).val());
+		$(this).closest('form').submit();
+	});
+
+	$('#eyes_color_picker_container').find('input').change(function(){
+		$('#profile_eyes_color').val('#'+$(this).val());
+		$(this).closest('form').submit();
+	});
+
+	$('#limbs_color_picker_container').find('input').change(function(){
+		$('#profile_limbs_color').val('#'+$(this).val());
+		$(this).closest('form').submit();
+	});

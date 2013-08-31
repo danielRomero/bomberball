@@ -171,6 +171,8 @@ class UsersController < ApplicationController
 	    	access_token = request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])
 	      tw_user_request = access_token.get('https://api.twitter.com/1.1/account/verify_credentials.json')
 	      tw_user = JSON.parse(tw_user_request.body).to_hash
+	      # TW nos devuelve una imagen pequeña, quitando "_normal" de la url obtenemos la original (ojo, NO es una chapuza, así lo pone en la doc)
+	      tw_user['profile_image_url'].slice! '_normal'
 	      social_link = 'https://twitter.com/'+tw_user['screen_name'].to_s
 
 	      # AQUI TENEMOS AL USUARIO

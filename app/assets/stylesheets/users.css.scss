@@ -30,12 +30,26 @@
 	     		}
 	     		.avatar_chooser{
 	     			padding-top:10px;
+	     			.mini_avatar_placeholder{
+	     				.mini_avatar{
+	     					margin-left:5px;
+	     					border: 1px solid grey;
+	     				}
+	     				.mini_avatar:hover{
+	     					cursor:pointer;
+	     				}
+	     			}
 	     		}
 	     		.name_placeholder{
 	     			padding-top:10px;
 	     		}
 	     		.name_chooser{
-	     			padding-top:10px;	
+	     			padding-top:10px;
+	     			.icon-spinner{
+	     				display:none;
+	     			}
+	     			.name_field{
+	     			}
 	     		}
      		}
      		.colours_picker{

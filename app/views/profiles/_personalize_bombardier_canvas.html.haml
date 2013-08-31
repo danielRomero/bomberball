@@ -1,0 +1,3 @@
+%canvas#bombardier_canvas{:width=>'130'}
+	:javascript
+		window.user_profile_costomize_bombardier($('#bombardier_canvas'), "#{@user.profile.head_color.to_s}", "#{@user.profile.body_color.to_s}", "#{@user.profile.limbs_color.to_s}", "#{@user.profile.eyes_color.to_s}", 50, 50);

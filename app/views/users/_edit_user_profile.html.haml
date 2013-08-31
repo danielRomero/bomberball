@@ -1,0 +1,32 @@
+.box
+	.title
+		%h4
+			='Social profile'
+	=form_for @user, :remote=>true do |u|
+		.social_profile
+			.avatar_placeholder
+				=u.hidden_field :avatar_url
+				:javascript
+					$('#user_avatar_url').change($(this).parent('form').submit());
+				=image_tag(@user.avatar_url, size: "200x200", :alt=>'avatar',:id=>'user_avatar')
+			-if(@socials.count>1)
+				.avatar_chooser.text-center
+					.mini_avatar_placeholder
+						-for social in @socials
+							=image_tag(social.avatar_url, size: "50x50", :alt=>'choose avatar', :class=>'mini_avatar',:onclick=>"$('#user_avatar').attr('src',$(this).attr('src'));$('#user_avatar_url').val($(this).attr('src'));")
+			.name_placeholder
+				=@user.name
+			-if(@socials.count>1)
+
+				.name_chooser
+					=u.text_field :name, :class=>'name_field'
+					:javascript
+						$('input').keyup(function() {
+							$('#loading_user_name').show();
+								delay(function(){
+								$('#loading_user_name').hide();
+								$(this).parent('form').submit();
+							}, 1000 );
+						});
+					%div{:style=>'min-width:20px;display:inline-block'}
+						.icon-spinner.icon-spin#loading_user_name	
