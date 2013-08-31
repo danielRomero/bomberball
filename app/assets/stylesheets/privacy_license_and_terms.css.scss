@@ -1,0 +1,16 @@
+// Place all the styles related to the privacy_license_and_terms controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.tfg{
+	.navigation_scroll_privacy{
+		position:fixed;
+		top:55px;
+		background-color: white;
+		width:55%;		
+	}
+	.privacy_tos_cookies{
+		h4,h3,h5{
+				font-weight:bold;
+		}
+	}
+}

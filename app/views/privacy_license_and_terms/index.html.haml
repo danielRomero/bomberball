@@ -1,0 +1,22 @@
+.col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-xs-12.col-sm-12
+
+	%nav.navigation_scroll_privacy
+		.row
+			.col-lg-4.col-md-4.col-xs-12.col-sm-12
+				=link_to 'Go to privacy and terms','',:onclick=>"$('html, body').animate({scrollTop:$('.license').position().top},'slow')"
+			.col-lg-4.col-md-4.col-xs-12.col-sm-12
+				=link_to 'Go to data usage policy','',:onclick=>"$('html, body').animate({scrollTop:$('.data_use').position().top},'slow')"
+			.col-lg-4.col-md-4.col-xs-12.col-sm-12
+				=link_to 'Go to cookies policy','',:onclick=>"$('html, body').animate({scrollTop:$('.cookies').position().top},'slow')"
+	.privacy_tos_cookies
+		%hr.license
+		=render :partial	 => 'privacy_license_and_terms/license_extended'
+		%hr.data_use
+		=render :partial	 => 'privacy_license_and_terms/data_use'
+		%hr.cookies
+		=render :partial => 'privacy_license_and_terms/cookies_privacy'
+	:javascript
+		$(function() {
+			$('footer').remove();
+		});
+		

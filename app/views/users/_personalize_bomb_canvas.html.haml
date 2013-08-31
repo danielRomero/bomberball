@@ -1,0 +1,3 @@
+%canvas#bomb_canvas{:width=>'130'}
+	:javascript
+		window.user_profile_costomize_bomb($('#bomb_canvas'), "#{@user.profile.bomb_color.to_s}", 'explosion_color', 50, 50);

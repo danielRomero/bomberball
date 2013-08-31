@@ -1,0 +1,72 @@
+.content_title_4#about
+	.row
+		.col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-xs-12.col-sm-12
+			.title					
+				%h3.text-center='Daniel Romero Esteban'
+			.caption
+				%h4='Hi everybody!'
+				%p
+					="I am graduate on Information Systems by University of Alcalá and now I am web developer at"
+					=link_to('Beperk.com','http://www.beperk.com',:target=>'_blank')					
+				
+				.col-lg-6.col-md-6.col-xs-12.col-sm-12{:style=>'margin-left:0; padding-left:0;'}
+					%h4='Me social'
+					%p
+						='View this project on '
+						=link_to ' GitHub ','https://github.com/danielRomero' ,:target => '_blank' ,:class=>'icon-github'
+					%p
+						='Follow me '
+						=link_to '','https://twitter.com/DanielRomeroE' ,:target => '_blank' ,:class=>'icon-twitter'
+					%p
+						='Link to me '
+						=link_to '','http://www.linkedin.com/pub/daniel-romero-esteban/72/1a/b29' ,:target => '_blank' ,:class=>'icon-linkedin'
+
+				.col-lg-6.col-md-6.col-xs-12.col-sm-12.text-center
+					=image_tag('http://m.c.lnkd.licdn.com/mpr/mpr/shrink_200_200/p/6/000/265/3e6/0426659.jpg',:alt=>'Daniel Romero Esteban',:class=>'image_profile')
+
+				
+				.col-lg-12.col-md-12.col-xs-12.col-sm-12{:style=>'margin-left:0; padding-left:0;'}
+					%h4='About this project'
+					%p='Bomberball is the name of this application which is my TFG (final degree project).'
+					%p="It's written on Ruby using the Ruby on Rails framewework."
+					%p='More technical details:'
+				.col-lg-6.col-md-6.col-xs-6.col-sm-6{:style=>'padding-left:0'}
+					%ul.icons-ul{:style=>'margin-left:0'}
+						%li{:style=>'font-weight: bold;padding-bottom:5px;'}
+							.icon-li.icon-camera-retro
+							='Front-end'
+						%li
+							.icon-li.icon-ok
+							='CoffeeScript'
+						%li
+							.icon-li.icon-ok
+							='SASS'
+						%li
+							.icon-li.icon-ok
+							='Haml'
+						%li
+							.icon-li.icon-ok
+							='jCanvas'
+						%li
+							.icon-li.icon-ok
+							='Bootstrap'
+						%li
+							.icon-li.icon-ok
+							='Font Awesome'
+				.col-lg-6.col-md-6.col-xs-6.col-sm-6{:style=>'padding-left:0'}
+					%ul.icons-ul{:style=>'margin-left:0'}
+						%li{:style=>'font-weight: bold;padding-bottom:5px;'}
+							.icon-li.icon-gears
+							='Back-end'
+						%li
+							.icon-li.icon-ok
+							='PostgreSQL'
+						%li
+							.icon-li.icon-ok
+							='Ruby on Rails'
+						%li
+							.icon-li.icon-ok
+							='Active Record'
+						%li
+							.icon-li.icon-ok
+							='MVC'
