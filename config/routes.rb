@@ -17,6 +17,7 @@ Bomberball::Application.routes.draw do
 
   resources :games
   resources :users
+  resources :profiles
   resources :privacy_license_and_terms
   
   # The priority is based upon order of creation: first created -> highest priority.

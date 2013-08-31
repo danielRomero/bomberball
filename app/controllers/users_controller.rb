@@ -172,72 +172,47 @@ class UsersController < ApplicationController
 	      tw_user_request = access_token.get('https://api.twitter.com/1.1/account/verify_credentials.json')
 	      tw_user = JSON.parse(tw_user_request.body).to_hash
 	      social_link = 'https://twitter.com/'+tw_user['screen_name'].to_s
-	      
 
 	      # AQUI TENEMOS AL USUARIO
-	      if((user = User.where(:email => session[:twitter_email])) and !user.blank?)
-	      	logger.debug 'YA REGISTRADO'
+	      if((user = User.where(:email => session[:twitter_email]).first) and !user.blank?)
 	      	logger.debug user.inspect
-
-					# => ya registrado
+					# => ya registrado pero no sé con que red social
 					social_signed = false
 					for social in user.socials
-						if((social.social_id == response['id_str']) and (social.name == 'twitter'))
+						if(social.sn_type == 'twitter')
 							# YA REGISTRADO CON ESTA RED SOCIAL
 							social_signed = true
 							break
 						end
 					end
 					if (!social_signed)
-						logger.debug 'NO SOCIAL'
-	      		logger.debug user.socials.inspect
-
+						# está registrado con otra red social, le asignamos esta también
 						social = user.socials.create(:social_id => tw_user['id_str'], :sn_type => 'twitter', :name => tw_user['name'], :avatar_url => tw_user['profile_image_url'],:social_link => social_link)
 						location = user.locations.create(:location => tw_user['location'])
-						# REGISTRADO!
-					else
-						logger.debug 'YA REGISTRADO y YA SOCIAL'
-	      		logger.debug user.socials.inspect
-						# => ya tiene esta red social
-						# REGISTRADO!
-						redirect_to root_path
 					end
+					sign_in(user)
 				else
 					# => es un usuario nuevo
 					begin
-						logger.debug 'USUARIO NUEVO'
-
 						user = User.create(:email => session[:twitter_email],:name => tw_user['name'],:avatar_url => tw_user['profile_image_url'])
-						logger.debug user.inspect
-						
-						logger.debug 'PROFILE NUEVO'
 
 						profile = Profile.create(:user_id=>user.id)
-						logger.debug profile.inspect
-
-						logger.debug 'SOCIAL NUEVO'
 
 						social = user.socials.create(:social_id => tw_user['id_str'], :sn_type => 'twitter', :name => tw_user['name'], :avatar_url => tw_user['profile_image_url'],:social_link => social_link)
-						logger.debug social.inspect
-					
-						logger.debug 'LOCATION NUEVO'
 
 						location = user.locations.create(:location => tw_user['location'])
-						logger.debug location.inspect
 
 						#Usuario registrado con exito
 						# REGISTRADO!
-						redirect_to root_path
-
+						sign_in(user)
 					rescue Exception => e
 						logger.debug 'ERROR QUE TE CAGAS'+e.message
 
 						logger.debug 'Error en el login de usuario'+e.backtrace.inspect
 						redirect_to root_path
 					end
-					
 				end
-
+				redirect_to user_path(user.id)
 	    else
 	    	request_token = @consumer.get_request_token(:oauth_callback => callbackUrl)
 	    	session[:request_token] = request_token
@@ -264,10 +239,10 @@ class UsersController < ApplicationController
       response = response.parsed
       # AQUI TENEMOS AL USUARIO
       if((user = User.where(:email => response['email']).first) and !user.blank?)
-				# => ya registrado
+				# => ya registrado con alguna red social
 				social_signed = false
 				for social in user.socials
-					if((social.social_id == response['id']) and (social.name == 'google'))
+					if(social.sn_type == 'google')
 						# YA REGISTRADO CON ESTA RED SOCIAL
 						social_signed = true
 						break
@@ -285,7 +260,7 @@ class UsersController < ApplicationController
 
 					user = User.create(:email => response['email'],:name => response['given_name'],:avatar_url => response['picture'])
 					# lOGUEA AL USUARIO
-					sign_in(user)
+					
 					
 					# DEVUELVE AL USUARIO
 					
@@ -293,16 +268,12 @@ class UsersController < ApplicationController
 					profile = Profile.create(:user_id=>user.id)
 
 					social = user.socials.create(:social_id => response['id'], :sn_type => 'google', :name => response['given_name'],:avatar_url => response['picture'],:social_link=>response['link'])
-
 					#Usuario registrado con exito
 					# REGISTRADO!
-					
-
+					sign_in(user)
 				rescue Exception => e
 					logger.debug 'Error en el login de usuario'+e.backtrace.inspect
-					
 				end
-				
 			end
 			redirect_to user_path(user.id)
     else

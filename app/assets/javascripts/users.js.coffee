@@ -3,10 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 window.user_profile_costomize_bomb = (canvas, bomb_color, explosion_color, width, height) ->
 	canvas.clearCanvas()
-	x = 20
-	y = 20
+	x = 65
+	y = 85
 	canvas.drawEllipse(
-	  fillStyle: bomb_color,
+    fillStyle: bomb_color
     x: x
     y: y
     width: width
@@ -29,4 +29,55 @@ window.user_profile_costomize_bomb = (canvas, bomb_color, explosion_color, width
     x2: x + (parseInt(width / 6) * 3)
     y2: y - (parseInt(height / 6) * 6)
 
-#user_profile_costomize_bombardier = (canvas, head_color, body_color, limbs_color, eyes_color) ->
+window.user_profile_costomize_bombardier = (canvas, head_color, body_color, limbs_color, eyes_color, width, height) ->
+    canvas.clearCanvas()
+    x = 65
+    y = 25
+    canvas.drawEllipse(
+      fillStyle: head_color
+      x: x
+      y: y
+      width: width
+      height: height
+    ).drawEllipse(
+      fillStyle: eyes_color
+      x: (x - parseInt(width / 4))
+      y: (y - parseInt(height / 6))
+      width: parseInt(width * 0.2)
+      height: parseInt(height * 0.3)
+    ).drawEllipse(
+      fillStyle: eyes_color
+      x: (x + parseInt(width / 4))
+      y: (y - parseInt(height / 6))
+      width: parseInt(width * 0.2)
+      height: parseInt(height * 0.3)
+    ).drawEllipse(
+      fillStyle: body_color
+      x: x
+      y: y + height + height / 2
+      width: (width * 2)
+      height: (height * 2)
+    ).drawEllipse(
+      fillStyle: limbs_color
+      x: parseInt(x + width / 1.1)
+      y: parseInt((y + (height / 2) + height / 3))
+      width: parseInt(width * 0.2)
+      height: parseInt(height * 0.2)
+    ).drawEllipse(
+      fillStyle: limbs_color
+      x: parseInt(x - width / 1.1)
+      y: parseInt((y + (height / 2) + height / 3))
+      width: parseInt(width * 0.2)
+      height: parseInt(height * 0.2)
+    ).drawEllipse(
+      fillStyle: limbs_color
+      x: parseInt((x + width / 1.4))
+      y: parseInt(y + height / 2 + height * 1.9)
+      width: parseInt(width * 0.2)
+      height: parseInt(height * 0.2)
+    ).drawEllipse
+      fillStyle: limbs_color
+      x: parseInt((x - width / 1.4))
+      y: parseInt(y + height / 2 + height * 1.9)
+      width: parseInt(width * 0.2)
+      height: parseInt(height * 0.2)
