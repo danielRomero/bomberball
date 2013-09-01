@@ -1,15 +1,20 @@
 class ProfilesController < ApplicationController
 
+	before_filter :login_required
+
 	def update
 		@user = current_user
-		if @user.profile.update_attributes(profile_params)
-			logger.debug 'funciona ok'
-			respond_to do |format|
-        format.js { render }
-        format.html { render :nothing => true}
-      end
+		if (params['id'].to_i == @user.profile.id)
+			if @user.profile.update_attributes(profile_params)
+				respond_to do |format|
+	        format.js { render }
+	        format.html { render :nothing => true}
+	      end
+			else
+				logger.debug 'error'
+			end
 		else
-			logger.debug 'error'
+			logger.debug 'error 401'
 		end
 	end
 

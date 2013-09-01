@@ -8,9 +8,9 @@
 					%p
 						='Here you can personalize your profile.'
 		%article.row
-			.content_box.col-lg-6.col-md-6.col-xs-12.col-sm-12	
+			.content_box.col-lg-6.col-md-6.col-xs-12.col-sm-12#user_profile_holder
 				=render :partial=> 'users/edit_user_profile'				
-			.content_box.col-lg-6.col-md-6.col-xs-12.col-sm-12
+			.content_box.col-lg-6.col-md-6.col-xs-12.col-sm-12#colour_box_holder
 				=render(:partial => 'profiles/personalize_colours_box')
 		%footer
 			%button.btn.btn-primary.btn-lg.btn-block{:type=>'button'}='Play now!'

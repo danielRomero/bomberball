@@ -1,6 +1,23 @@
 class UsersController < ApplicationController
 	
-	before_filter :login_required, :only => [:show,:user_sign_out]
+	before_filter :login_required, :only => [:show,:user_sign_out,:update]
+
+	def update
+		@user = current_user
+		if (params['id'].to_i == @user.id)
+			if @user.update_attributes!(user_params)
+				@socials = @user.socials
+				respond_to do |format|
+	        format.js { render }
+	        format.html { render :nothing => true}
+	      end
+			else
+				logger.debug 'error'
+			end
+		else
+			logger.debug 'error 401'
+		end
+	end
 
 	def show
 		@user = current_user
@@ -171,13 +188,13 @@ class UsersController < ApplicationController
 	    	access_token = request_token.get_access_token(:oauth_verifier => params[:oauth_verifier])
 	      tw_user_request = access_token.get('https://api.twitter.com/1.1/account/verify_credentials.json')
 	      tw_user = JSON.parse(tw_user_request.body).to_hash
-	      # TW nos devuelve una imagen pequeña, quitando "_normal" de la url obtenemos la original (ojo, NO es una chapuza, así lo pone en la doc)
+	      # TW nos devuelve una imagen pequeña, quitando "_normal" de la url obtenemos la original (ojo, NO es una chapuza, así lo pone en la doc de tw)
 	      tw_user['profile_image_url'].slice! '_normal'
 	      social_link = 'https://twitter.com/'+tw_user['screen_name'].to_s
 
 	      # AQUI TENEMOS AL USUARIO
 	      if((user = User.where(:email => session[:twitter_email]).first) and !user.blank?)
-	      	logger.debug user.inspect
+	      	
 					# => ya registrado pero no sé con que red social
 					social_signed = false
 					for social in user.socials
@@ -287,5 +304,9 @@ class UsersController < ApplicationController
       end
     end
 	end
+	private
+		def user_params
+			params.require(:user).permit(:avatar_url, :name)
+		end
 end
 
