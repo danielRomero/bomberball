@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
 	before_filter :login_required
-	def index
+	def new
 		
 	end
 end

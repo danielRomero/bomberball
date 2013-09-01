@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
 	def update
 		@user = current_user
+		#miro si el id del usuario que quiere modificar es el suyo
 		if (params['id'].to_i == @user.id)
 			if @user.update_attributes!(user_params)
 				@socials = @user.socials

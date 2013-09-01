@@ -1,0 +1,53 @@
+.new_game.row
+	.col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-xs-12.col-sm-12
+		%article
+			%canvas#principal_game_canvas{:autofocus => ""}
+			:javascript
+				//init size of canvas
+				window.game.canvas_set_size($('#principal_game_canvas'));
+
+				//Touch or not touch, that is the question
+				if ("ontouchstart" in document.documentElement){
+					
+				}else{
+					//load keyboard controls events
+					window.game.keyboard_control($('#principal_game_canvas'));
+				}
+				window.game.start_game($('#principal_game_canvas'));
+
+				//GAME LOOP
+				var mainloop = function() {
+				  //updateGame();
+				  //drawGame();
+				};
+
+				//Animation frame support
+				var animFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || null ;
+
+		    if ( animFrame !== null ) {
+		       var canvas = $('#principal_game_canvas').get(0);
+		      //setup for mozilla browsers
+	        if ( $.browser.mozilla ) {
+	            var recursiveAnim = function() {
+	              mainloop();
+	              animFrame();
+	            };
+
+	            // setup for multiple calls
+	            window.addEventListener("MozBeforePaint", recursiveAnim, false);
+
+	            // start the mainloop
+	            animFrame();
+	        } else {
+	            var recursiveAnim = function() {
+	                mainloop();
+	                animFrame( recursiveAnim, canvas );
+	            };
+
+	            // start the mainloop
+	            animFrame( recursiveAnim, canvas );
+	        }
+			    } else {
+			        var ONE_FRAME_TIME = 1000.0 / 60.0 ;
+			        setInterval( mainloop, ONE_FRAME_TIME );
+			    }

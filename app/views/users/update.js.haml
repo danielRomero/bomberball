@@ -2,3 +2,5 @@
 $('#user_profile_holder').html("#{escape_javascript(render :partial => 'users/edit_user_profile')}");
 -#renderizo cabecera
 $('#application_header').html("#{escape_javascript(render :partial => 'layouts/header_with_user')}");
+-#cambio nombre de usuario en jumbotron
+$('#user_name_user_show').html("Hi #{@user.name}!");

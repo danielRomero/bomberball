@@ -14,20 +14,18 @@
 							=image_tag(social.avatar_url, size: '50x50', :alt=>'choose avatar', :class=>'mini_avatar',:onclick=>"$('#user_avatar_url').val($(this).attr('src'));$('#edit_user_#{@user.id}').submit();")
 			.name_placeholder
 				=@user.name
-			-if(@socials.count>1)
 
-				.name_chooser
-					=u.text_field :name, :class=>'name_field', :required => 'required'
-					:javascript
-						$(function() {
-						  $('#user_name').keyup(function() {
-								$('#loading_user_name').show();
-								delay(function(){
-									$('#loading_user_name').hide();
-									$("#edit_user_#{@user.id}").submit();
-								}, 1000 );
-							});
+			.name_chooser
+				=u.text_field :name, :class=>'name_field', :required => 'required'
+				:javascript
+					$(function() {
+					  $('#user_name').keyup(function() {
+							$('#loading_user_name').show();
+							delay(function(){
+								$('#loading_user_name').hide();
+								$("#edit_user_#{@user.id}").submit();
+							}, 1000 );
 						});
-						
-					%div{:style=>'min-width:20px;display:inline-block'}
-						.icon-spinner.icon-spin#loading_user_name	
+					});
+				%div{:style=>'min-width:20px;display:inline-block'}
+					.icon-spinner.icon-spin#loading_user_name	

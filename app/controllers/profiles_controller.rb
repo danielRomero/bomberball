@@ -19,7 +19,7 @@ class ProfilesController < ApplicationController
 	end
 
 	private
-	def profile_params
-		params.require(:profile).permit(:bomb_color, :eyes_color, :body_color, :head_color, :limbs_color)
-	end
+		def profile_params
+			params.require(:profile).permit(:bomb_color, :eyes_color, :body_color, :head_color, :limbs_color)
+		end
 end
