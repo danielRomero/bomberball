@@ -6,7 +6,6 @@ window.game = {
   canvas : null
   block_height : 0
   block_width : 0
-  game_grid : [[0,1,2,3,4,5,6,7,8],[0,1,2,3,4,5,6]]
 
   bombs : []
 
@@ -26,7 +25,11 @@ window.game = {
 }
 window.game.initialize_game = (grid) ->
   window.game.grid = grid
-  console.log window.game.grid
+  iterator = -1
+  for row in window.game.grid
+    iterator++
+    for elem in window.game.grid[iterator]
+      console.log elem
 window.game.canvas_set_size = (canvas) ->
   canvas.attr('width',canvas.parent().width())
   canvas.attr('height',canvas.parent().width()/2)
@@ -59,23 +62,44 @@ window.game.draw_grid = (canvas) ->
   y = 0
 
   iterator = -1
+  i = 0
   for row in window.game.grid
     iterator++
     for elem in window.game.grid[iterator]
       # el elemento viene así => type:id ahora solo necesito el type
       switch elem.split(':')[0]
         when 'brick'
+          console.log 'player'
           window.game.draw_brick(canvas, x, y)
         when 'block'
+          console.log 'player'
           window.game.draw_block(canvas, x, y)
         when 'has_bomb'
+          console.log 'player'
           window.game.draw_has_bomb(canvas, x, y)
         when 'empty'
-          window.game.draw_empty(canvas, x, y)
+          console.log 'player'
+          #window.game.draw_empty(canvas, x, y)
+        when 'has_player'
+          window.game.draw_player(canvas, x, y)
+          console.log 'player'
+      window.game.asd(canvas, x, y, i)
+      i++
       x += window.game.block_width
     x = 0
     y += window.game.block_height
-    
+window.game.asd = (canvas ,x, y, i)->
+  canvas.drawText
+    #fillStyle: "#9cf"
+    layer:true
+    strokeStyle: "#25a"
+    strokeWidth: 2
+    fromCenter:false
+    x: x+40
+    y: y+20
+    fontSize: 16
+    fontFamily: "Verdana, sans-serif"
+    text: i
 window.game.draw_brick = (canvas ,x,y) ->
   canvas.drawRect
     strokeStyle: "#AEB8BA"
@@ -122,12 +146,12 @@ window.game.draw_block = (canvas ,x,y) ->
 
 window.game.draw_player = (canvas, x, y) ->
   canvas.drawRect
-    strokeStyle: "#FF2DF5"
-    fillStyle: "#FF2DF5"
-    strokeWidth: 2
+    strokeStyle: "#AEB8BA"
+    strokeWidth: 1
+    fillStyle: "#15FA0D"
     fromCenter: false
     x: x
-    y: x
+    y: y
     width: window.game.block_width
     height: window.game.block_height
 
@@ -160,7 +184,7 @@ window.game.update = () ->
       window.game.player_1[0][1] = y
       window.game.player_1[0][0] = x
 
-  window.conn.sync_grid(window.game.grid)
+  #window.conn.sync_grid(window.game.grid)
 
 window.game.collisions = (player_x, player_y) ->
   collision = false

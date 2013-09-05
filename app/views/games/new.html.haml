@@ -23,12 +23,11 @@
 				window.conn.create_player('estoy creando un jugador')
 
 				// *********** GAME LOOP ***********
-
 				var mainloop = function() {
-				  window.game.update();
-				  window.game.draw($('#principal_game_canvas'));
+				  //window.game.update();
+				  //window.game.draw($('#principal_game_canvas'));
 				};
-
+				window.game.draw($('#principal_game_canvas'));
 				//Animation frame support
 				var animFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || null ;
 				
@@ -47,9 +46,9 @@
 					// START GAME
 					setInterval( mainloop, ONE_FRAME_TIME );
 				}
-
 				// *********** END GAME LOOP ***********
-				// *********** WHEN USER LEAVE THE PAGE *******
+
+				// *********** USER LEAVE THE PAGE ***********
 				window.onbeforeunload = function(e){
 					window.conn.player_leave_page(#{@user.id})
 				}

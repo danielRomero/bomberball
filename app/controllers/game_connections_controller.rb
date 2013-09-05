@@ -24,13 +24,13 @@ class GameConnectionsController < WebsocketRails::BaseController
 	end
 
 	def update_grid
-		logger.debug 'UPDATE GRID'
 		iterator = 0
 		grid = []
 		for row in message['grid']
 			row_new = []
 			for elem_new in message['grid'][iterator]
 				elem_old = GridElem.find(elem_new.split(':').last.to_i)
+				# si ha cambiado el elemento del grid, actualizo la bd, si no se queda como está
 				if (elem_old.block_type != elem_new.split(':').first)
 					elem_new = elem_old.update_attributes(:block_type => elem_new.split(':').first)
 					row_new << elem_new.get_type

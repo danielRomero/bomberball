@@ -36,5 +36,5 @@ window.conn.player_leave_page = (user_id) ->
 	window.conn.dispatcher.trigger('player_disconnected', {user_id: user_id})
 
 window.conn.sync_grid = (grid) ->
-	window.conn.dispatcher.trigger('sync_grid',{grid: grid})
+	#window.conn.dispatcher.trigger('sync_grid',{grid: grid})
 	
