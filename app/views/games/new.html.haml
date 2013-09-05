@@ -3,8 +3,12 @@
 		%article
 			%canvas#principal_game_canvas{:autofocus => "",:width=>'0',:height=>'0'}
 			:javascript
+				// *********** INIT GAME ***********
 				//init size of canvas
 				window.game.canvas_set_size($('#principal_game_canvas'));
+
+				//init game grid
+				window.game.initialize_game(#{@game.grid})
 
 				// TOUCH SCREEN
 				//Touch or not touch, that is the question
@@ -14,11 +18,14 @@
 					//load keyboard controls events
 					window.game.keyboard_control($('#principal_game_canvas'));
 				}
+				// *********** CONNECTION ***********
+				window.conn.init_game_connection("#{@uri}")
+				window.conn.create_player('estoy creando un jugador')
 
-				// GAME LOOP
+				// *********** GAME LOOP ***********
+
 				var mainloop = function() {
-					//console.log('mainloop');
-				  window.game.update($('#principal_game_canvas'));
+				  window.game.update();
 				  window.game.draw($('#principal_game_canvas'));
 				};
 
@@ -40,4 +47,9 @@
 					// START GAME
 					setInterval( mainloop, ONE_FRAME_TIME );
 				}
-				// END GAME LOOP
+
+				// *********** END GAME LOOP ***********
+				// *********** WHEN USER LEAVE THE PAGE *******
+				window.onbeforeunload = function(e){
+					window.conn.player_leave_page(#{@user.id})
+				}

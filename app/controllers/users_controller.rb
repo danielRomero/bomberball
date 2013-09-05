@@ -26,14 +26,7 @@ class UsersController < ApplicationController
 	end
 
 	def user_sign_out
-		#begin
 		sign_out()
-			#redirect_to root_path
-		# rescue Exception => e
-		# 	raise e.inspect
-		# 	raise 'ERROR 404'.inspect
-		# end
-		logger.debug current_user.inspect
 		redirect_to root_path
 	end
 

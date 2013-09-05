@@ -8,6 +8,9 @@ gem 'rails', '4.0.0'
 # =>  Use postgresql as the database for Active Record
 gem 'pg'
 
+# => Websocket for ruby 2 and rails 4
+gem 'websocket-rails', :git => 'git://github.com/DanKnox/websocket-rails.git'
+
 # => Use devise as management of user object https://github.com/plataformatec/devise
 gem 'devise', git: "git://github.com/plataformatec/devise.git"
 

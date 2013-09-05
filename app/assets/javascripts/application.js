@@ -16,6 +16,9 @@
 //= require turbolinks
 //= require 'jcanvas'
 //= require_tree .
+//= require websocket_rails/main
+
+// this function provides to app delay feature only set it time and callback
 var delay = (function(){
   var timer = 0;
   return function(callback, ms){
@@ -23,3 +26,4 @@ var delay = (function(){
     timer = setTimeout(callback, ms);
   };
 })();
+
