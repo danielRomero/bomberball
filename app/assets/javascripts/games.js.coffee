@@ -6,7 +6,6 @@ window.game = {
   canvas : null
   block_height : 0
   block_width : 0
-  game_id : 0
 
   bombs : []
 
@@ -24,14 +23,6 @@ window.game = {
 
 	key_pressed : null
 }
-window.game.initialize_game = (grid, game_id) ->
-  window.game.game_id = game_id
-  window.game.grid = grid
-  iterator = -1
-  for row in window.game.grid
-    iterator++
-    for elem in window.game.grid[iterator]
-      console.log elem
 window.game.canvas_set_size = (canvas) ->
   canvas.attr('width',canvas.parent().width())
   canvas.attr('height',canvas.parent().width()/2)
@@ -56,7 +47,8 @@ window.game.keyboard_control = (canvas) ->
 window.game.draw = (canvas) ->
   canvas.clearCanvas();
   #drawing game grid
-  window.game.draw_grid(canvas)
+  #window.game.draw_grid(canvas)
+  console.log window.game.grid
   
 window.game.draw_grid = (canvas) ->
   #recorro el array para saber que dibujar
@@ -158,35 +150,36 @@ window.game.draw_player = (canvas, x, y) ->
     height: window.game.block_height
 
 window.game.update = () ->
-  if (window.game.key_pressed != null)
-    # solo muevo si pulsa tecla
-    # guardo en temporal las coordenadas nuevas
-    x =  window.game.player_1[0][0]
-    y = window.game.player_1[0][1]
-    movement_size = 20
-    switch window.game.key_pressed
-      when 8
-        #backspace 8
-        console.log 'bomba!'
-      when 37
-        #left 37
-        x -= movement_size
-      when 38
-        #up 38
-        y -= movement_size
-      when 39
-        #right 39
-        x += movement_size
-      when 40
-        #down 40
-        y += movement_size
-    # miro las colisiones
-    if (!window.game.collisions(x,y))
-      # si no hay colisiones actualizo las posiciones
-      window.game.player_1[0][1] = y
-      window.game.player_1[0][0] = x
+  window.conn.update_grid(window.game.grid)
+  # if (window.game.key_pressed != null)
+  #   # solo muevo si pulsa tecla
+  #   # guardo en temporal las coordenadas nuevas
+  #   x =  window.game.player_1[0][0]
+  #   y = window.game.player_1[0][1]
+  #   movement_size = 20
+  #   switch window.game.key_pressed
+  #     when 8
+  #       #backspace 8
+  #       console.log 'bomba!'
+  #     when 37
+  #       #left 37
+  #       x -= movement_size
+  #     when 38
+  #       #up 38
+  #       y -= movement_size
+  #     when 39
+  #       #right 39
+  #       x += movement_size
+  #     when 40
+  #       #down 40
+  #       y += movement_size
+  #   # miro las colisiones
+  #   if (!window.game.collisions(x,y))
+  #     # si no hay colisiones actualizo las posiciones
+  #     window.game.player_1[0][1] = y
+  #     window.game.player_1[0][0] = x
 
-  window.conn.sync_grid(window.game.grid)
+  # window.conn.sync_grid(window.game.grid)
 
 window.game.collisions = (player_x, player_y) ->
   collision = false

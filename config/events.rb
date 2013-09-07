@@ -12,16 +12,21 @@ WebsocketRails::EventMap.describe do
   #   end
   # The above will handle an event triggered on the client like `product.new`.
 
-  subscribe :player_connected,        to: GameConnectionsController, with_method: :player_connected
-  subscribe :player_disconnected,     to: GameConnectionsController, with_method: :player_disconnected
-  subscribe :update_movement,         to: GameConnectionsController, with_method: :update_movement
-  subscribe :update_grid,             to: GameConnectionsController, with_method: :update_grid
-  subscribe :sync_grid,               to: GameConnectionsController, with_method: :update_grid
-
-  subscribe :new_user,                to: GameConnectionsController, with_method: :new_user
 
   # The :client_connected method is fired automatically when a new client connects
-  #subscribe :client_connected, :to => ChatController, :with_method => :client_connected
+  subscribe :client_connected, :to => GameConnectionsController, :with_method => :client_connected
   # The :client_disconnected method is fired automatically when a client disconnects
-  #subscribe :client_disconnected, :to => ChatController, :with_method => :delete_user
+  subscribe :client_disconnected, :to => GameConnectionsController, :with_method => :client_disconnected
+
+  subscribe :update_grid, :to => GameConnectionsController, :with_method => :update_grid
+
+
+
+  # -------------------------------------- OLD ------------------------------------------
+  # subscribe :player_connected,        to: GameConnectionsController, with_method: :player_connected
+  # subscribe :player_disconnected,     to: GameConnectionsController, with_method: :player_disconnected
+  # subscribe :update_movement,         to: GameConnectionsController, with_method: :update_movement
+  # subscribe :update_grid,             to: GameConnectionsController, with_method: :update_grid
+  # subscribe :sync_grid,               to: GameConnectionsController, with_method: :update_grid
+  # subscribe :new_user,                to: GameConnectionsController, with_method: :new_user
 end

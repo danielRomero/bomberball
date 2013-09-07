@@ -11,30 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130904070010) do
-
-  create_table "bombs", force: true do |t|
-    t.integer  "x"
-    t.integer  "y"
-    t.integer  "user_id"
-    t.integer  "game_id"
-    t.integer  "player_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20130907093625) do
 
   create_table "games", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "grid_elems", force: true do |t|
-    t.string   "block_type"
-    t.integer  "x"
-    t.integer  "y"
-    t.integer  "game_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "locations", force: true do |t|
@@ -47,10 +29,8 @@ ActiveRecord::Schema.define(version: 20130904070010) do
   add_index "locations", ["user_id"], name: "index_locations_on_user_id", using: :btree
 
   create_table "players", force: true do |t|
-    t.integer  "x"
-    t.integer  "y"
-    t.integer  "user_id"
     t.integer  "game_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

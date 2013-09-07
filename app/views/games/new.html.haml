@@ -7,9 +7,6 @@
 				//init size of canvas
 				window.game.canvas_set_size($('#principal_game_canvas'));
 
-				//init game grid
-				window.game.initialize_game(#{@game.grid}, #{@game.id})
-
 				// TOUCH SCREEN
 				//Touch or not touch, that is the question
 				if ("ontouchstart" in document.documentElement){
@@ -19,13 +16,13 @@
 					window.game.keyboard_control($('#principal_game_canvas'));
 				}
 				// *********** CONNECTION ***********
-				window.conn.init_game_connection("#{@uri}")
+				window.conn.init_connection("#{@game.id}", "#{@user.id}", "#{@host}")
 				//window.conn.create_player(#{@user.id})
 
 				// *********** GAME LOOP ***********
 				var mainloop = function() {
-				  //window.game.update();
-				  //window.game.draw($('#principal_game_canvas'));
+				  window.game.update();
+				  window.game.draw($('#principal_game_canvas'));
 				};
 
 				//Animation frame support
@@ -48,7 +45,7 @@
 				}
 				// *********** END GAME LOOP ***********
 
-				// *********** USER LEAVE THE PAGE ***********
+				// *********** USER LEAVE THE PAGE deprecated ***********
 				window.onbeforeunload = function(e){
-					window.conn.player_leave_page(#{@user.id})
+					//window.conn.player_leave_page(#{@user.id})
 				}
