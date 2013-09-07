@@ -4,6 +4,8 @@
 			%canvas#principal_game_canvas{:autofocus => "",:width=>'0',:height=>'0'}
 			:javascript
 				// *********** INIT GAME ***********
+				
+
 				//init size of canvas
 				window.game.canvas_set_size($('#principal_game_canvas'));
 
@@ -17,6 +19,7 @@
 				}
 				// *********** CONNECTION ***********
 				window.conn.init_connection("#{@game.id}", "#{@user.id}", "#{@host}")
+
 				//window.conn.create_player(#{@user.id})
 
 				// *********** GAME LOOP ***********
@@ -45,7 +48,7 @@
 				}
 				// *********** END GAME LOOP ***********
 
-				// *********** USER LEAVE THE PAGE deprecated ***********
+				// *********** USER LEAVE THE PAGE ***********
 				window.onbeforeunload = function(e){
-					//window.conn.player_leave_page(#{@user.id})
+					window.conn.disconnect_player("#{@user.id}")
 				}

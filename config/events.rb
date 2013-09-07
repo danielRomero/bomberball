@@ -14,12 +14,13 @@ WebsocketRails::EventMap.describe do
 
 
   # The :client_connected method is fired automatically when a new client connects
-  subscribe :client_connected, :to => GameConnectionsController, :with_method => :client_connected
+  #subscribe :client_connected, :to => GameConnectionsController, :with_method => :client_connected
   # The :client_disconnected method is fired automatically when a client disconnects
-  subscribe :client_disconnected, :to => GameConnectionsController, :with_method => :client_disconnected
+  #subscribe :client_disconnected, :to => GameConnectionsController, :with_method => :client_disconnected
 
   subscribe :update_grid, :to => GameConnectionsController, :with_method => :update_grid
-
+  subscribe :connect_player, :to => GameConnectionsController, :with_method => :player_connected
+  subscribe :disconnect_player,     to: GameConnectionsController, with_method: :player_disconnected
 
 
   # -------------------------------------- OLD ------------------------------------------

@@ -13,19 +13,25 @@ window.conn.init_connection = (game_id, user_id, host) ->
 	window.conn.channel_name = game_id
 	#subscribe this client to a channel with name GAME_ID
 	window.conn.channel = window.conn.dispatcher.subscribe(window.conn.channel_name)
+	window.conn.connect_player(user_id)
 
 	# --- this events are called from server controller
 	window.conn.channel.bind 'update_grid', (msg) ->
 		console.log 'grid updated'
 		window.game.grid = msg.grid
-	window.conn.channel.bind 'winner', (msg)  ->
+
+	window.conn.channel.bind 'win', (msg)  ->
 		console.log 'You win'
 
-	window.conn.channel.bind 'looser', (msg)  ->
+	window.conn.channel.bind 'lose', (msg)  ->
 		console.log 'You lost'
 
 window.conn.update_grid = (grid) ->
 	window.conn.dispatcher.trigger('update_grid', {grid: grid, game_id: window.conn.channel_name})
+window.conn.connect_player = (user_id) ->
+	window.conn.dispatcher.trigger('connect_player', {user_id})
+window.conn.disconnect_player = (user_id) ->
+	window.conn.dispatcher.trigger('disconnect_player', {user_id: user_id})
 # ----------------------------------------- OLD -------------------------------------
 #window.conn.failure = (response) ->
 #	console.log 'failure: ' + response.message

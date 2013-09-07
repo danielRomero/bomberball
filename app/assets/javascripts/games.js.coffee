@@ -47,8 +47,10 @@ window.game.keyboard_control = (canvas) ->
 window.game.draw = (canvas) ->
   canvas.clearCanvas();
   #drawing game grid
-  #window.game.draw_grid(canvas)
-  console.log window.game.grid
+  #
+  #console.log window.game.grid
+  if (window.game.grid != null)
+    window.game.draw_grid(canvas)
   
 window.game.draw_grid = (canvas) ->
   #recorro el array para saber que dibujar
@@ -61,7 +63,7 @@ window.game.draw_grid = (canvas) ->
     iterator++
     for elem in window.game.grid[iterator]
       # el elemento viene así => type:id ahora solo necesito el type
-      switch elem.split(':')[0]
+      switch elem.block_type
         when 'brick'
           console.log 'brick'
           window.game.draw_brick(canvas, x, y)

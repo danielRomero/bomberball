@@ -1,18 +1,64 @@
 class GameConnectionsController < WebsocketRails::BaseController
-
-	def client_disconnected
-		logger.debug 'Player disconneted'
+	
+	def player_disconnected
+		logger.debug 'Player disconneted!!!'
+		# aquí hay que quitar el player del grid del controller_store
+		# sin embargo del connection_store se elimina automáticamente el player
 	end
 
-	def client_connected
-		logger.debug 'Player conneted'
+	def player_connected		
+		logger.debug 'Player conneted!!!'
+		connection_store[:user_id] = message['user_id']
+
 	end
 
 	def update_grid
 		logger.debug 'MENSAJE => '+message.inspect
+		logger.debug '************* USER LIST **************'+connection_store.collect_all(:user_id).inspect
 		# si es el primer usuario conectado creo el grid y le digo que estamos esperando a más usuarios
-		WebsocketRails[message['game_id']].trigger(:update_grid, {grid: 'Grid actualizado'})
-	end	
+		controller_store[:grid]
+		# si solo hay un usuario y no se ha creado antes el grid, lo creo
+		if((connection_store.collect_all(:user_id).count <= 1) and (controller_store[:grid].blank?))
+			grid = create_grid
+		else
+			# si hay más de un usuario paso a actualizar el grid
+			grid = grid_comparison(message['grid'], controller_store[:grid])
+		end
+		# actualizo el store del grid
+		controller_store[:grid] = grid 
+		WebsocketRails[message['game_id']].trigger(:update_grid, {grid: grid})
+	end
+
+	def create_grid
+		grid = []
+		# CREO GRID
+		# array que contiene todas las filas las cuales contienen sus columnas
+		for i in 0..6
+			row = []
+			for j in 0..8
+				if(((i % 2) != 0) and ((j % 2) != 0))
+					row << {:block_type => 'block', :time => 0}
+				elsif (j==0 or j==1 or j==7 or j == 8) and (i==0 or i==1 or i==5 or i==6)
+					if ((i == 0) and (j == 0))
+						row << {:block_type => 'has_player', :time => 0}
+					else
+						row << {:block_type => 'empty', :time => 0}
+					end
+
+				else
+					row << {:block_type => 'brick', :time => 0}
+				end
+			end
+			grid << row
+		end
+		logger.debug ' ===================  EL GRID ======================'
+		#logger.debug grid
+		return grid
+	end
+
+	def grid_comparison(new_grid, old_grid)
+		return controller_store[:grid]
+	end
 
 	# ----------------------------------- OLD ------------------------
 	# def new_user
