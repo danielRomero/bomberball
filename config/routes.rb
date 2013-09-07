@@ -13,6 +13,9 @@ Bomberball::Application.routes.draw do
 
   get 'landing/about_me' => 'landing#about_me', as: :about_me
   
+  # ---------------------------------------- !!!!!!!!!!!!!!!! BORRAME ---------------------------------------- !!!!!!!!!!!!!!!!
+  get 'users/entrar' =>'users#entrar', as: :entrar
+  get 'games/pruebas' =>'games#pruebas', as: :pruebas
 
 
   resources :games

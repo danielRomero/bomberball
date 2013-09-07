@@ -6,6 +6,7 @@ window.game = {
   canvas : null
   block_height : 0
   block_width : 0
+  game_id : 0
 
   bombs : []
 
@@ -23,7 +24,8 @@ window.game = {
 
 	key_pressed : null
 }
-window.game.initialize_game = (grid) ->
+window.game.initialize_game = (grid, game_id) ->
+  window.game.game_id = game_id
   window.game.grid = grid
   iterator = -1
   for row in window.game.grid
@@ -69,26 +71,26 @@ window.game.draw_grid = (canvas) ->
       # el elemento viene así => type:id ahora solo necesito el type
       switch elem.split(':')[0]
         when 'brick'
-          console.log 'player'
+          console.log 'brick'
           window.game.draw_brick(canvas, x, y)
         when 'block'
-          console.log 'player'
+          console.log 'block'
           window.game.draw_block(canvas, x, y)
         when 'has_bomb'
-          console.log 'player'
+          console.log 'has_bomb'
           window.game.draw_has_bomb(canvas, x, y)
         when 'empty'
-          console.log 'player'
+          console.log 'empty'
           #window.game.draw_empty(canvas, x, y)
         when 'has_player'
           window.game.draw_player(canvas, x, y)
           console.log 'player'
-      window.game.asd(canvas, x, y, i)
+      window.game.draw_number(canvas, x, y, i)
       i++
       x += window.game.block_width
     x = 0
     y += window.game.block_height
-window.game.asd = (canvas ,x, y, i)->
+window.game.draw_number = (canvas ,x, y, i)->
   canvas.drawText
     #fillStyle: "#9cf"
     layer:true
@@ -184,7 +186,7 @@ window.game.update = () ->
       window.game.player_1[0][1] = y
       window.game.player_1[0][0] = x
 
-  #window.conn.sync_grid(window.game.grid)
+  window.conn.sync_grid(window.game.grid)
 
 window.game.collisions = (player_x, player_y) ->
   collision = false

@@ -1,9 +1,22 @@
 class GameConnectionsController < WebsocketRails::BaseController
+
+	def new_user
+		logger.debug '************* NEW USER **************'+message['user_id'].to_s.inspect
+
+		connection_store[:user_id] = message['user_id']
+		logger.debug '************* USER LIST **************'+connection_store.collect_all(:user_id).inspect
+
+		WebsocketRails['game_id'].trigger(:new_user, {user_id: message['user_id'], list_users: connection_store.collect_all(:user_id)})
+		#broadcast_message :new_user, {user_id: message['user_id'], list_users: connection_store.collect_all(:user_id)}
+	end
 	
 	def player_connected
 		logger.debug 'PLAYER CONNECTED'
 		logger.debug message.inspect
 		# envia mensaje al cliente al evento definido con el nombre que se indica con un has de parámetros
+		game = Game.find(message['game_id'])
+		player = game.players.create!(:user_id => message['user_id'])
+		game.grid_elems.first.update_attribute(:block_type, 'has_player')
 		send_message :player_connected, {some_values_to_response: 'vale, lo he creado'}
 	end
 
@@ -35,7 +48,8 @@ class GameConnectionsController < WebsocketRails::BaseController
 					elem_new = elem_old.update_attributes(:block_type => elem_new.split(':').first)
 					row_new << elem_new.get_type
 				else
-					row_new << elem_new
+					# si no ha cambiado, introduzco el de la bd, que siempre estará más actualizado
+					row_new << elem_old.get_type
 				end
 			end
 			iterator += 1

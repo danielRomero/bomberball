@@ -30,11 +30,27 @@ window.conn.init_game_connection = (uri) ->
 
 window.conn.create_player = (msg) ->
 	console.log 'metodo de crear jugador'
-	window.conn.dispatcher.trigger('player_connected', {user_name: 'esto es un parametro', msg_body: msg}, window.conn.success, window.conn.failure)
+	window.conn.dispatcher.trigger('player_connected', {user_id: msg, game_id: window.game.game_id}, window.conn.success, window.conn.failure)
 
 window.conn.player_leave_page = (user_id) ->
 	window.conn.dispatcher.trigger('player_disconnected', {user_id: user_id})
 
 window.conn.sync_grid = (grid) ->
-	#window.conn.dispatcher.trigger('sync_grid',{grid: grid})
+	window.conn.dispatcher.trigger('sync_grid',{grid: grid})
+
+
+	
+window.conn.pruebas = (user_id) ->
+	dispatcher = new WebSocketRails('localhost:3000/websocket')
+	#subscribe this client to a channel with name GAME_ID
+	channel = dispatcher.subscribe('game_id')
+	
+	dispatcher.trigger('new_user', {user_id: user_id}, window.conn.success, window.conn.failure)
+	
+	channel.bind 'new_user', (msg) ->
+		$('#pruebas_1').append(msg.user_id)
+		$('#pruebas_2').append(msg.list_users[0])
+		#alert typeof msg.list_users
+		console.log msg.list_users
+
 	

@@ -8,7 +8,7 @@
 				window.game.canvas_set_size($('#principal_game_canvas'));
 
 				//init game grid
-				window.game.initialize_game(#{@game.grid})
+				window.game.initialize_game(#{@game.grid}, #{@game.id})
 
 				// TOUCH SCREEN
 				//Touch or not touch, that is the question
@@ -20,14 +20,14 @@
 				}
 				// *********** CONNECTION ***********
 				window.conn.init_game_connection("#{@uri}")
-				window.conn.create_player('estoy creando un jugador')
+				//window.conn.create_player(#{@user.id})
 
 				// *********** GAME LOOP ***********
 				var mainloop = function() {
 				  //window.game.update();
 				  //window.game.draw($('#principal_game_canvas'));
 				};
-				window.game.draw($('#principal_game_canvas'));
+
 				//Animation frame support
 				var animFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || null ;
 				

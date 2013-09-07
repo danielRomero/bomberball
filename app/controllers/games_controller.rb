@@ -1,5 +1,9 @@
 class GamesController  < ApplicationController 
 	before_filter :login_required
+	def pruebas
+		
+	end
+	
 	def new
 		@user = current_user
 		@game = nil
@@ -11,27 +15,22 @@ class GamesController  < ApplicationController
 		
 		# => si hay partidas con menos de 4 jugadores, me uno
 		if(!@game.blank?)
-			grid_elems = @game.grid_elems
 			logger.debug 'GAME NOT BLANK => '+@game.inspect
 			# inserto al usuario como jugador de la partida en la posición del grid correspondiente
-			logger.debug 'COUNT -> '+@game.players.count.to_s
-			logger.debug grid_elems.inspect
+			logger.debug 'PLAYERS COUNT -> '+@game.players.count.to_s
+			logger.debug @game.grid_elems.inspect
 			# => LEO GRID
 			@game.grid = []
 			for i in 0..6
 				# meto cada fila en un array consiguiendo un array de filas que cada una contiene un array de columnas
 				elems = []
-				for elem in grid_elems.offset(i*9).limit(9)
+				for elem in @game.grid_elems.offset(i*9).limit(9)
 					elems << elem.get_type
 				end
 				@game.grid << elems
 			end
-			@game.grid[0][0] = 'has_player:'+@game.grid[0][0].split(':')[1]
-			@game.grid[0][8] = 'has_player:'+@game.grid[0][8].split(':')[1]
-			@game.grid[6][0] = 'has_player:'+@game.grid[6][0].split(':')[1]
-			@game.grid[6][8] = 'has_player:'+@game.grid[6][8].split(':')[1]
 			@game.players.create(:user_id => @user.id, :x=> 10, :y => 10)
-			logger.debug grid_elems.inspect
+			logger.debug @game.grid_elems.inspect
 		# => si no hay partidas de menos de 4 jugadores creo una
 		else
 			logger.debug 'CREAMOS GAME, GRID Y PLAYER'

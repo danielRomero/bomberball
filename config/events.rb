@@ -18,4 +18,10 @@ WebsocketRails::EventMap.describe do
   subscribe :update_grid,             to: GameConnectionsController, with_method: :update_grid
   subscribe :sync_grid,               to: GameConnectionsController, with_method: :update_grid
 
+  subscribe :new_user,                to: GameConnectionsController, with_method: :new_user
+
+  # The :client_connected method is fired automatically when a new client connects
+  #subscribe :client_connected, :to => ChatController, :with_method => :client_connected
+  # The :client_disconnected method is fired automatically when a client disconnects
+  #subscribe :client_disconnected, :to => ChatController, :with_method => :delete_user
 end
