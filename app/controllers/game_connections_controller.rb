@@ -2,34 +2,83 @@ class GameConnectionsController < WebsocketRails::BaseController
 	
 	def player_disconnected
 		logger.debug 'Player disconneted!!!'
+		grid_game_id = 'grid'+message['game_id'].to_s
+		players_list_id = 'players'+message['game_id'].to_s
+		for iterator in 0..connection_store.collect_all(players_list_id).count
+			if connection_store[players_list_id][iterator]['user_id'] = message['user_id']
+				connection_store[players_list_id].delete_at(iterator)
+			end
+		end
 		# aquí hay que quitar el player del grid del controller_store
 		# sin embargo del connection_store se elimina automáticamente el player
 	end
 
-	def player_connected		
+	def player_connected
 		logger.debug 'Player conneted!!!'
-		connection_store[:user_id] = message['user_id']
-
+		grid_game_id = 'grid'+message['game_id'].to_s
+		players_list_id = 'players'+message['game_id'].to_s
+		if((user = User.find(message['user_id'])) and (!user.blank?))
+			# lo añado a la lista de usuarios conectados
+			connection_store[players_list_id] = message['user_id']
+			# lo añado a la lista de usuarios del store de juego
+			
+			player = case connection_store.collect_all(players_list_id).count
+				when 1
+					if controller_store[grid_game_id].blank?
+						create_grid(grid_game_id)
+					end
+					new_player(user,0,0,players_list_id)
+					['0:0:has_player:0:'+user.id.to_s]
+				when 2
+					new_player(user,0,8,players_list_id)
+					['0:8:has_player:0:'+user.id.to_s]
+				when 3
+					new_player(user,6,0,players_list_id)
+					['6:0:has_player:0:'+user.id.to_s]
+				when 4
+					new_player(user,6,8,players_list_id)
+					['6:8:has_player:0:'+user.id.to_s]
+				end
+			grid_comparison(player,controller_store[grid_game_id],players_list_id)
+		end
 	end
 
 	def update_grid
-		logger.debug 'MENSAJE => '+message.inspect
-		logger.debug '************* USER LIST **************'+connection_store.collect_all(:user_id).inspect
+		grid_game_id = 'grid'+message['game_id'].to_s
+		players_list_id = 'players'+message['game_id'].to_s
 		# si es el primer usuario conectado creo el grid y le digo que estamos esperando a más usuarios
-		controller_store[:grid]
-		# si solo hay un usuario y no se ha creado antes el grid, lo creo
-		if((connection_store.collect_all(:user_id).count <= 1) and (controller_store[:grid].blank?))
-			grid = create_grid
-		else
-			# si hay más de un usuario paso a actualizar el grid
-			grid = grid_comparison(message['grid'], controller_store[:grid])
+		# actualizo el grid solo cuando tenga cambios
+		if(!message['new_grid_elems'].blank?)
+			controller_store[grid_game_id] = grid_comparison(message['new_grid_elems'], controller_store[grid_game_id],players_list_id)
 		end
-		# actualizo el store del grid
-		controller_store[:grid] = grid 
-		WebsocketRails[message['game_id']].trigger(:update_grid, {grid: grid})
+		# actualizo el store del grid de los clientes por multidifusion al canal indicado en game_id
+		WebsocketRails[message['game_id']].trigger(:update_grid, {grid: controller_store[grid_game_id], players: controller_store[players_list_id]})
 	end
 
-	def create_grid
+private
+	def new_player(user, i, j,players_list_id)
+		players = []
+		if !controller_store[players_list_id].blank?
+			players = controller_store[players_list_id]
+		end
+		profile = user.profile
+		players << {:user_id => user.id, :i => i ,:j => j, :head_color => profile.head_color, :limbs_color => profile.limbs_color, :eyes_color => profile.eyes_color, :body_color => profile.body_color ,:bomb_color => profile.bomb_color}
+		controller_store[players_list_id] = players
+
+		logger.debug 'PLAYERS ~~~~~~~~~~~~~~~~~~~~~~~~   ~    ~~ ~   ~~~ ~  ~ ~~    ~ ~   ~  ~  ~   ~   ~ ~'
+		logger.debug controller_store[players_list_id]
+	end
+	def update_player(user_id, i, j,players_list_id)
+		for iterator in 0..controller_store[players_list_id].count
+			if controller_store[players_list_id][iterator]['user_id'] = user_id
+				controller_store[players_list_id][iterator]['i'] = i
+				controller_store[players_list_id][iterator]['j'] = j
+				break
+			end
+		end
+	end
+
+	def create_grid(grid_game_id)
 		grid = []
 		# CREO GRID
 		# array que contiene todas las filas las cuales contienen sus columnas
@@ -39,25 +88,33 @@ class GameConnectionsController < WebsocketRails::BaseController
 				if(((i % 2) != 0) and ((j % 2) != 0))
 					row << {:block_type => 'block', :time => 0}
 				elsif (j==0 or j==1 or j==7 or j == 8) and (i==0 or i==1 or i==5 or i==6)
-					if ((i == 0) and (j == 0))
-						row << {:block_type => 'has_player', :time => 0}
-					else
-						row << {:block_type => 'empty', :time => 0}
-					end
-
+					row << {:block_type => 'empty', :time => 0}
 				else
 					row << {:block_type => 'brick', :time => 0}
 				end
 			end
 			grid << row
 		end
-		logger.debug ' ===================  EL GRID ======================'
-		#logger.debug grid
+		controller_store[grid_game_id] = grid
 		return grid
 	end
 
-	def grid_comparison(new_grid, old_grid)
-		return controller_store[:grid]
+	# PLayer => i:j:block_type:time:id
+	# Grid_elem => i:j:block_type:time
+	def grid_comparison(new_grid_elems, old_grid, players_list_id)
+		for elem in new_grid_elems
+			grid_item = elem.split(':')
+			if (grid_item[2] == 'has_player')
+				#actualizo la lista de usuarios
+				update_player(grid_item[4],grid_item[0].to_i,grid_item[1].to_i, players_list_id)
+				#actualizo grid
+				old_grid[grid_item[0].to_i][grid_item[1].to_i] = {:block_type => grid_item[2], :time => grid_item[3].to_i, :user_id =>grid_item[4] }
+			else
+				#actualizo el grid
+				old_grid[grid_item[0].to_i][grid_item[1].to_i] = {:block_type => grid_item[2], :time => grid_item[3].to_i}
+			end
+		end
+		return old_grid
 	end
 
 	# ----------------------------------- OLD ------------------------

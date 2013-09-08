@@ -2,10 +2,12 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 window.game = {
+  players : null
   grid : null
   canvas : null
   block_height : 0
   block_width : 0
+  new_grid_elems : []
 
   bombs : []
 
@@ -65,20 +67,19 @@ window.game.draw_grid = (canvas) ->
       # el elemento viene así => type:id ahora solo necesito el type
       switch elem.block_type
         when 'brick'
-          console.log 'brick'
           window.game.draw_brick(canvas, x, y)
         when 'block'
-          console.log 'block'
           window.game.draw_block(canvas, x, y)
         when 'has_bomb'
-          console.log 'has_bomb'
           window.game.draw_has_bomb(canvas, x, y)
         when 'empty'
-          console.log 'empty'
-          #window.game.draw_empty(canvas, x, y)
+          window.game.draw_empty(canvas, x, y)
+  
         when 'has_player'
-          window.game.draw_player(canvas, x, y)
-          console.log 'player'
+          for player in window.game.players
+            if(player['user_id'] == elem.user_id)
+              window.game.draw_player(canvas, x, y, player['head_color'])
+          
       window.game.draw_number(canvas, x, y, i)
       i++
       x += window.game.block_width
@@ -140,11 +141,11 @@ window.game.draw_block = (canvas ,x,y) ->
     width: window.game.block_width
     height: window.game.block_height
 
-window.game.draw_player = (canvas, x, y) ->
+window.game.draw_player = (canvas, x, y, head_color, eyes_colo, body_color, limbs_color) ->
   canvas.drawRect
-    strokeStyle: "#AEB8BA"
+    strokeStyle: head_color
     strokeWidth: 1
-    fillStyle: "#15FA0D"
+    fillStyle: head_color
     fromCenter: false
     x: x
     y: y
@@ -152,7 +153,6 @@ window.game.draw_player = (canvas, x, y) ->
     height: window.game.block_height
 
 window.game.update = () ->
-  window.conn.update_grid(window.game.grid)
   # if (window.game.key_pressed != null)
   #   # solo muevo si pulsa tecla
   #   # guardo en temporal las coordenadas nuevas
@@ -181,7 +181,8 @@ window.game.update = () ->
   #     window.game.player_1[0][1] = y
   #     window.game.player_1[0][0] = x
 
-  # window.conn.sync_grid(window.game.grid)
+  # Sincronizo el grid con el server
+  window.conn.update_grid(window.game.new_grid_elems)
 
 window.game.collisions = (player_x, player_y) ->
   collision = false

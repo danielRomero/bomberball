@@ -28,4 +28,7 @@ Bomberball::Application.configure do
   config.assets.debug = true
   # This configuration fix some errors on development about websockets
   config.allow_concurrency = true
+
+  # This line reload all files and not use cache
+  config.middleware.delete Rack::Lock
 end

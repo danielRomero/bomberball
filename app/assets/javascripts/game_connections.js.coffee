@@ -19,6 +19,7 @@ window.conn.init_connection = (game_id, user_id, host) ->
 	window.conn.channel.bind 'update_grid', (msg) ->
 		console.log 'grid updated'
 		window.game.grid = msg.grid
+		window.game.players = msg.players
 
 	window.conn.channel.bind 'win', (msg)  ->
 		console.log 'You win'
@@ -26,12 +27,15 @@ window.conn.init_connection = (game_id, user_id, host) ->
 	window.conn.channel.bind 'lose', (msg)  ->
 		console.log 'You lost'
 
-window.conn.update_grid = (grid) ->
-	window.conn.dispatcher.trigger('update_grid', {grid: grid, game_id: window.conn.channel_name})
+window.conn.update_grid = (new_grid_elems) ->
+	window.conn.dispatcher.trigger('update_grid', {new_grid_elems: new_grid_elems, game_id: window.conn.channel_name})
+
 window.conn.connect_player = (user_id) ->
-	window.conn.dispatcher.trigger('connect_player', {user_id})
+	window.conn.dispatcher.trigger('connect_player', {user_id: user_id, game_id: window.conn.channel_name})
+
 window.conn.disconnect_player = (user_id) ->
-	window.conn.dispatcher.trigger('disconnect_player', {user_id: user_id})
+	window.conn.dispatcher.trigger('disconnect_player', {user_id: user_id, game_id: window.conn.channel_name})
+
 # ----------------------------------------- OLD -------------------------------------
 #window.conn.failure = (response) ->
 #	console.log 'failure: ' + response.message
