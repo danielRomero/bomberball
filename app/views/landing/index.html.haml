@@ -1,12 +1,23 @@
 .landing
 	.content_title_1#bomberman_title
-		%h2.text-center.active='"It looks like a classic Bomberman game"'
+		%h2.text-center.active
+			
+			='It looks like a classic Bomberman game'
+			.icon-quote-right 
 		%h2.active
 			=link_to 'ENTRAR', entrar_path
-		%h2.text-center='"It looks like a classic Bomberman game1"'
-		%h2.text-center='"It looks like a classic Bomberman game2"'
-		%h2.text-center='"It looks like a classic Bomberman game3"'
-		%h2.text-center='"It looks like a classic Bomberman game4"'
+		%h2.text-center
+			.icon-quote-left
+			='"It looks like a classic Bomberman game1"'
+		%h2.text-center
+			='"It looks like a classic Bomberman game2"'
+			.icon-quote-right 
+		%h2.text-center
+			.icon-quote-left
+			='"It looks like a classic Bomberman game3"'
+		%h2.text-center
+			='"It looks like a classic Bomberman game4"'
+			.icon-quote-right 
 	-# cajas explicativas how works con 3 pasos
 	.content_title_2#how_works
 		.row

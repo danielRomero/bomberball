@@ -37,17 +37,22 @@
 			margin-bottom: 0;
 			padding-left: 0;
 			padding-right: 0;
+			
+		}
+		.navbar{
 			background: none;
 			border:none;
-			background: none;
 			border:none;
 			background-color: #2E3138 !important;
 			box-shadow: 0px 2px 2px #060606;
 			-moz-box-shadow: 0px 2px 2px #060606;
 			-webkit-box-shadow: 0px 2px 2px #060606;
-		}
-		.navbar{
-			
+			margin-left: 0;
+			margin-right: 0;
+			.navbar-header{
+				margin-left: 0;
+				margin-right: 0;
+			}
 			a{
 				text-shadow:none;
 			}

@@ -44,7 +44,7 @@ window.game.canvas_set_size_touch = (canvas) ->
   width = 0
   height = 0
   if window.innerHeight > window.innerWidth
-    canvas.hide()
+    $('.game').hide()
     $('#turn_device_to_landscape_alert').show()
     # el alto pasa a ser el ancho y viceversa para calcular el tamaño del canvas
     height = window.innerWidth
@@ -53,31 +53,59 @@ window.game.canvas_set_size_touch = (canvas) ->
     # obtengo el alto y ancho para calcular el tamaño del canvas
     height = window.innerHeight
     width = window.innerWidth
+  canvas_width = Math.round(width*0.70)
+  # tamaño de los controles sobre la pantalla
+  table_size = Math.floor((width - canvas_width - 6)/2)
+  $('.touch_controls').css('min-width', table_size)
+
+  $('table').css('font-size', table_size/3)
   # ya tengo el tamaño del dispositivo, calculo tamaños
-  canvas.attr('width',Math.floor(width))
-  canvas.attr('height',Math.floor(width/2))
+  canvas.attr('width',canvas_width)
+  canvas.attr('height', Math.floor(canvas_width/2))
   
-  window.game.canvas_height = Math.floor((width/2))
-  window.game.canvas_width = Math.floor(width)
+  window.game.canvas_width = canvas_width
+  window.game.canvas_height = Math.floor((canvas_width/2))
 
   window.game.block_width = Math.floor(window.game.canvas_width / 9)
   window.game.block_height = Math.floor(window.game.canvas_height / 7)
   # dejo el header o barra de navegacion fija arriba y hago scroll despacio hasta el canvas
-  $('nav').removeClass('navbar-fixed-top')
+  
   $("html, body").animate
-    scrollTop: canvas.position().top
+    scrollTop: $('.game').position()
   , "slow"
+  $('nav').removeClass('navbar-fixed-top')
 
-window.game.listener_change_device_orientation = (canvas) ->
+window.game.listener_change_device_orientation = () ->
   # Cuando cambia la orientación, si está en modo landscape mostramos el canvas, si no una alerta
   window.addEventListener "orientationchange", (->
     if window.innerHeight > window.innerWidth
-      canvas.hide()
+      $('.game').hide()
       $('#turn_device_to_landscape_alert').show()
     else
-      canvas.show()
+      $('.game').show()
       $('#turn_device_to_landscape_alert').hide()
   ), false
+window.game.touch_controls = (controls) ->
+  controls.show()
+  # move player
+  $('.icon-chevron-sign-up').click (e) ->
+    window.game.key_pressed = 38
+  $('.icon-chevron-sign-right').click (e) ->
+    window.game.key_pressed = 39
+  $('.icon-chevron-sign-down').click (e) ->
+    window.game.key_pressed = 40
+  $('.icon-chevron-sign-left').click (e) ->
+    window.game.key_pressed = 37
+  # place bomb  
+  $('.icon-arrow-up').click (e) ->
+    window.game.key_pressed = 87
+  $('.icon-arrow-right').click (e) ->
+    window.game.key_pressed = 68
+  $('.icon-arrow-down').click (e) ->
+    window.game.key_pressed = 83
+  $('.icon-arrow-left').click (e) ->
+    window.game.key_pressed = 65
+
 
 window.game.keyboard_control = () ->
   $(document).keydown (event) ->
@@ -86,9 +114,6 @@ window.game.keyboard_control = () ->
       window.game.key_pressed = event.keyCode
       event.preventDefault()
       event.stopPropagation()
-
-  $(document).keyup (event) ->
-  	window.game.key_pressed = null
 
 window.game.draw = (canvas) ->
   canvas.clearCanvas()
@@ -224,6 +249,7 @@ window.game.update = () ->
       when 68
         # d 68
         window.game.place_bomb([0,+1], window.game.grid)
+    window.game.key_pressed = null
 
 
     #obtengo la posición previa al movimiento
