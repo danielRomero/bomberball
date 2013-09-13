@@ -9,17 +9,8 @@ window.game = {
   block_height : 0
   block_width : 0
   new_grid_elems : []
+  i : 0
 
-  bombs : []
-
-  players_width : 50
-  players_height : 50
-
-  # los valores son coordenadas, el primero es el jugador y el segundo la bomba
-  player_1 : [[10,10],[0,0]]
-  player_2 : [[0,0],[0,0]]
-  player_3 : [[0,0],[0,0]]
-  player_4 : [[0,0],[0,0]]
 
   canvas_width : 0
   canvas_height: 0
@@ -117,6 +108,10 @@ window.game.keyboard_control = () ->
 
 window.game.draw = (canvas) ->
   canvas.clearCanvas()
+  b = new Date().getTime()
+  frames = b-window.game.i
+  window.game.i = b
+  $('#frames').html(Math.round(1000/frames));
   if (window.game.grid != null)
     window.game.draw_grid(canvas, window.game.grid, window.game.players)
   
@@ -137,15 +132,14 @@ window.game.draw_grid = (canvas, grid, players) ->
         when 'block'
           window.game.draw_block(canvas, x, y)
         when 'has_bomb'
-          window.game.draw_has_bomb(canvas, x, y)
+          window.game.draw_has_bomb(canvas, x, y, elem.bomb_color)
         when 'empty'
           window.game.draw_empty(canvas, x, y)
         when 'has_player'
-          window.game.draw_player(canvas, x, y, elem.head_color)
+          window.game.draw_player(canvas, x, y, elem.head_color, elem.eyes_color, elem.body_color, elem.limbs_color)
         else
           window.game.draw_empty(canvas, x, y)
-          
-      window.game.draw_number(canvas, x, y, i)
+
       i++
       x += window.game.block_width
     x = 0
@@ -184,16 +178,34 @@ window.game.draw_empty = (canvas ,x,y) ->
     width: window.game.block_width
     height: window.game.block_height
 
-window.game.draw_has_bomb = (canvas ,x,y) ->
-  canvas.drawEllipse
-    strokeStyle: "#AEB8BA"
-    strokeWidth: 1
-    fillStyle: "#0612FE"
-    fromCenter: false
+window.game.draw_has_bomb = (canvas, x, y, bomb_color) ->
+  width = window.game.block_width*0.6
+  height = window.game.block_height*0.6
+  x += width*0.8
+  y += height
+  canvas.drawEllipse(
+    fillStyle: bomb_color
     x: x
     y: y
-    width: window.game.block_width/2
-    height: window.game.block_height/2
+    width: width
+    height: height
+  ).drawEllipse(
+    fillStyle: "black"
+    x: x
+    y: (y - ((height / 2) + parseInt(height / 12)))
+    width: parseInt(width / 6)
+    height: parseInt(height / 6)
+  ).drawBezier
+    strokeStyle: "#000"
+    strokeWidth: 5
+    x1: x
+    y1: y - ((height / 2) + parseInt(height / 12))
+    cx1: x + (parseInt(width / 6))
+    cy1: y - height
+    cx2: x + (parseInt(width / 6) * 2)
+    cy2: y - (parseInt(height / 6) * 4)
+    x2: x + (parseInt(width / 6) * 3)
+    y2: y - (parseInt(height / 6) * 6)
 
 window.game.draw_block = (canvas ,x,y) ->
   canvas.drawRect
@@ -206,16 +218,59 @@ window.game.draw_block = (canvas ,x,y) ->
     width: window.game.block_width
     height: window.game.block_height
 
-window.game.draw_player = (canvas, x, y, head_color, eyes_colo, body_color, limbs_color) ->
-  canvas.drawRect
-    strokeStyle: head_color
-    strokeWidth: 1
+window.game.draw_player = (canvas, x, y, head_color, eyes_color, body_color, limbs_color) ->
+  width = window.game.block_width*0.3
+  height = window.game.block_height*0.3
+  x += width*1.6
+  y+= height*0.6
+  canvas.drawEllipse(
     fillStyle: head_color
-    fromCenter: false
     x: x
     y: y
-    width: window.game.block_width
-    height: window.game.block_height
+    width: width
+    height: height
+  ).drawEllipse(
+    fillStyle: eyes_color
+    x: (x - parseInt(width / 4))
+    y: (y - parseInt(height / 6))
+    width: parseInt(width * 0.2)
+    height: parseInt(height * 0.3)
+  ).drawEllipse(
+    fillStyle: eyes_color
+    x: (x + parseInt(width / 4))
+    y: (y - parseInt(height / 6))
+    width: parseInt(width * 0.2)
+    height: parseInt(height * 0.3)
+  ).drawEllipse(
+    fillStyle: body_color
+    x: x
+    y: y + height + height / 2
+    width: (width * 2)
+    height: (height * 2)
+  ).drawEllipse(
+    fillStyle: limbs_color
+    x: parseInt(x + width)
+    y: parseInt((y + (height / 2.8) + height / 3))
+    width: parseInt(width * 0.4)
+    height: parseInt(height * 0.4)
+  ).drawEllipse(
+    fillStyle: limbs_color
+    x: parseInt(x - width)
+    y: parseInt((y + (height / 2.8) + height / 3))
+    width: parseInt(width * 0.4)
+    height: parseInt(height * 0.4)
+  ).drawEllipse(
+    fillStyle: limbs_color
+    x: parseInt((x + width/1.2))
+    y: parseInt(y + height / 1.8 + height * 1.9)
+    width: parseInt(width * 0.4)
+    height: parseInt(height * 0.4)
+  ).drawEllipse
+    fillStyle: limbs_color
+    x: parseInt((x - width/1.2))
+    y: parseInt(y + height / 1.8 + height * 1.9)
+    width: parseInt(width * 0.4)
+    height: parseInt(height * 0.4)
 
 window.game.update = () ->
   if (window.game.key_pressed != null and window.game.grid != null)

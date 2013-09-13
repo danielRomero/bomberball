@@ -1,4 +1,5 @@
 .new_game.row
+	
 	.col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-xs-12.col-sm-12
 		%article
 			.game
@@ -44,13 +45,16 @@
 									%td.with_content
 										.icon-arrow-down.icon
 									%td	
-					
+				#frames
+					='hola'
 				%canvas#principal_game_canvas{:autofocus => "",:width=>'0',:height=>'0',:style=>'float:left'}
+
 			#turn_device_to_landscape_alert.alert.alert-block.alert-danger{:style => 'display:none'}
 				%h4
 					='Please turn your device to landscape mode'
 				%p
 					='You can do this turning your device to the right or changing this value on your config options menu'
+
 
 			:javascript
 				// *********** INIT GAME ***********
