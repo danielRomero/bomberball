@@ -28,13 +28,16 @@ window.conn.init_connection = (game_id, user_id, host) ->
 		console.log 'You lost'
 
 window.conn.update_grid = (new_grid_elems) ->
-	window.conn.dispatcher.trigger('update_grid', {new_grid_elems: new_grid_elems, game_id: window.conn.channel_name})
+	window.conn.dispatcher.trigger('update_grid', {new_values: new_grid_elems, game_id: window.conn.channel_name})
 
 window.conn.connect_player = (user_id) ->
 	window.conn.dispatcher.trigger('connect_player', {user_id: user_id, game_id: window.conn.channel_name})
 
 window.conn.disconnect_player = (user_id) ->
 	window.conn.dispatcher.trigger('disconnect_player', {user_id: user_id, game_id: window.conn.channel_name})
+
+window.conn.update_player = (user_id, old_state, new_state) ->
+	window.conn.dispatcher.trigger('update_player', {user_id: user_id, old_values: old_state, new_values: new_state})	
 
 # ----------------------------------------- OLD -------------------------------------
 #window.conn.failure = (response) ->

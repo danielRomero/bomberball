@@ -1,8 +1,5 @@
 class GamesController  < ApplicationController 
 	before_filter :login_required
-	def pruebas
-		
-	end
 	
 	def new
 		@user = current_user

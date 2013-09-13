@@ -2,23 +2,33 @@
 	.col-lg-6.col-lg-offset-3.col-md-6.col-md-offset-3.col-xs-12.col-sm-12
 		%article
 			%canvas#principal_game_canvas{:autofocus => "",:width=>'0',:height=>'0'}
+
+			#turn_device_to_landscape_alert.alert.alert-block.alert-danger{:style => 'display:none'}
+				%h4
+					='Please turn your device to landscape mode'
+				%p
+					='You can do this turning your device to the right or changing this value on your config options menu'
 			:javascript
 				// *********** INIT GAME ***********
 				
 
-				//init size of canvas
-				window.game.canvas_set_size($('#principal_game_canvas'));
+				
 
 				// TOUCH SCREEN
 				//Touch or not touch, that is the question
 				if ("ontouchstart" in document.documentElement){
-					
+					//init size of canvas
+					window.game.canvas_set_size_touch($('#principal_game_canvas'));
+					window.game.listener_change_device_orientation($('#principal_game_canvas'));
 				}else{
 					//load keyboard controls events
-					window.game.keyboard_control($('#principal_game_canvas'));
+					window.game.keyboard_control();
+					//init size of canvas
+					window.game.canvas_set_size_pc($('#principal_game_canvas'));
 				}
-				// *********** CONNECTION ***********
+				// *********** INIT CONNECTION ***********
 				window.conn.init_connection("#{@game.id}", "#{@user.id}", "#{@host}")
+				window.game.set_user_id(#{@user.id})
 
 				
 
@@ -41,6 +51,7 @@
 					animFrame( recursiveAnim, canvas );
 
 				} else {
+					alert('this game maybe works better on modern browsers');
 					// browsers without animation frame support
 					var ONE_FRAME_TIME = 1000.0 / 60.0 ;
 					// START GAME
@@ -50,5 +61,6 @@
 
 				// *********** USER LEAVE THE PAGE ***********
 				window.onbeforeunload = function(e){
-					window.conn.disconnect_player("#{@user.id}")
+					window.conn.disconnect_player("#{@user.id}");
+					window.game.disconnect_player();
 				}

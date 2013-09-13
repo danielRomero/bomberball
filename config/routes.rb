@@ -15,7 +15,6 @@ Bomberball::Application.routes.draw do
   
   # ---------------------------------------- !!!!!!!!!!!!!!!! BORRAME ---------------------------------------- !!!!!!!!!!!!!!!!
   get 'users/entrar' =>'users#entrar', as: :entrar
-  get 'games/pruebas' =>'games#pruebas', as: :pruebas
 
 
   resources :games
