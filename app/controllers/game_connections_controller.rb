@@ -4,11 +4,16 @@ class GameConnectionsController < WebsocketRails::BaseController
 		logger.debug 'Player disconneted!!!'
 		grid_game_id = 'grid'+message['game_id'].to_s
 		players_list_id = 'players'+message['game_id'].to_s
-		if (connection_store.collect_all(players_list_id).count <= 1)
+		logger.debug 'numero de jugadores: '+connection_store.collect_all(players_list_id).count.to_s
+		# resto uno porque es el jugador que se desconecta
+		if (connection_store.collect_all(players_list_id).count-1 <= 1)
 			#soy el último jugador y me piro así que me cargo el juego
-			Game.find(message['game_id']).destroy
-			logger.debug 'Juego destruido'
-			logger.debug 'numero de jugadores: '+connection_store.collect_all(players_list_id).count.to_s
+			if (game = Game.find(message['game_id']) and !game.blank?)
+				game.destroy
+			end
+			if(connection_store.collect_all(players_list_id).count-1 == 1)
+				player_win(message['game_id'])
+			end
 		end
 		# players_list_id = 'players'+message['game_id'].to_s
 		# for iterator in 0..connection_store.collect_all(players_list_id).count
@@ -21,6 +26,14 @@ class GameConnectionsController < WebsocketRails::BaseController
 		# aquí hay que quitar el player del grid del controller_store
 		# sin embargo del connection_store se elimina automáticamente el player
 		#¿cuando elimino la partida?
+	end
+	
+	def player_win(game_id)
+		WebsocketRails[game_id].trigger(:player_win, {})
+	end
+
+	def player_lose
+
 	end
 
 	def player_connected

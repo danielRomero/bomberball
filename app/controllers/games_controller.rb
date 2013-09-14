@@ -1,6 +1,6 @@
 class GamesController  < ApplicationController 
 	before_filter :login_required
-	
+
 	def new
 		@user = current_user
 		@game = nil

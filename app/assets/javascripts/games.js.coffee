@@ -20,7 +20,9 @@ window.game = {
 }
 window.game.set_user_id = (user_id) ->
   window.game.user_id = user_id
+
 window.game.canvas_set_size_pc = (canvas) ->
+  window.game.canvas = canvas
   canvas.attr('width',Math.floor(canvas.parent().width()))
   canvas.attr('height',Math.floor(canvas.parent().width()/2))
   
@@ -32,6 +34,7 @@ window.game.canvas_set_size_pc = (canvas) ->
 
   
 window.game.canvas_set_size_touch = (canvas) ->
+  window.game.canvas = canvas
   # si NO estamos en modo lanscape mostramos una alerta y ocultamos el canvas
   width = 0
   height = 0
@@ -173,8 +176,9 @@ window.game.bomb_explosion_collision = (elem, i, j) ->
     if elem.block_type == 'brick' or elem.block_type == 'empty'
       window.game.new_grid_elems.push(i+':'+j+':'+'has_explosion'+':'+new Date().getTime()/1000)
     else if elem.block_type == 'has_player'
-      window.conn.player_die(elem.user_id)
+      
       window.game.new_grid_elems.push(i+':'+j+':'+'has_explosion'+':'+new Date().getTime()/1000)
+      window.game.player_lose()
   catch e
     console.log e
 window.game.draw_explosion = (canvas,x , y) ->
@@ -368,8 +372,9 @@ window.game.update = () ->
         window.game.new_grid_elems.push(old_position[0]+':'+old_position[1]+':'+'empty'+':'+0)
       when 'die'
         console.log 'USER DIE'
-        window.conn.player_die(window.game.grid[old_position[0]][old_position[1]].user_id)
+        
         window.game.new_grid_elems.push([old_position[0]+':'+old_position[1]+':'+'empty'+':'+0])
+        window.game.player_lose()
 
     window.conn.update_grid(window.game.new_grid_elems)
     window.game.new_grid_elems = []
@@ -411,4 +416,13 @@ window.game.player_mov_collision = (i, j, grid) ->
 window.game.disconnect_player = () ->
   old_position = window.game.player_actual_position(window.game.grid)
   window.conn.update_grid([old_position[0]+':'+old_position[1]+':'+'empty'+':'+0])
+
+window.game.player_lose = () ->
+  $('#modal_window_game_win_lose').find('#text_message').html('Game finish')
+  $('#trigger_finish_modal').click()
   
+
+
+window.game.player_win = () ->
+  $('#modal_window_game_win_lose').find('#text_message').html('Game finish')
+  $('#trigger_finish_modal').click()

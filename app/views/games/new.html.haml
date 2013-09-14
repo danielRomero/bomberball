@@ -50,6 +50,15 @@
 				#frames_update
 					='adios'
 				%canvas#principal_game_canvas{:autofocus => "",:width=>'0',:height=>'0',:style=>'float:left'}
+				=link_to('','#modal_window_game_win_lose','data-toggle'=>'modal', :style => 'display:none', :id => 'trigger_finish_modal')
+				.modal.fade#modal_window_game_win_lose
+					.modal-dialog
+						.modal-content
+							.modal-header
+								%button.close{:type=>'button','data-dismiss'=>'modal', 'aria-hidden'=>'true'}='x'
+								%h4.modal-title='Game Finished'
+							.modal-body.text-center
+								#text_message
 
 			#turn_device_to_landscape_alert.alert.alert-block.alert-danger{:style => 'display:none'}
 				%h4
