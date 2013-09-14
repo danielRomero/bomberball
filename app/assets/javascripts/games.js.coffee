@@ -9,7 +9,8 @@ window.game = {
   block_height : 0
   block_width : 0
   new_grid_elems : []
-  i : 0
+  i_draw : 0
+  i_update : 0
 
 
   canvas_width : 0
@@ -109,9 +110,9 @@ window.game.keyboard_control = () ->
 window.game.draw = (canvas) ->
   canvas.clearCanvas()
   b = new Date().getTime()
-  frames = b-window.game.i
-  window.game.i = b
-  $('#frames').html(Math.round(1000/frames));
+  frames = b-window.game.i_draw
+  window.game.i_draw = b
+  $('#frames_draw').html('draw FPS: '+Math.round(1000/frames));
   if (window.game.grid != null)
     window.game.draw_grid(canvas, window.game.grid, window.game.players)
   
@@ -119,12 +120,10 @@ window.game.draw_grid = (canvas, grid, players) ->
   #recorro el array para saber que dibujar
   x = 0
   y = 0
-
-  iterator = -1
   i = 0
+  j = 0
   for row in grid
-    iterator++
-    for elem in grid[iterator]
+    for elem in grid[i]
       # el elemento viene así => type:id ahora solo necesito el type
       switch elem.block_type
         when 'brick'
@@ -132,19 +131,64 @@ window.game.draw_grid = (canvas, grid, players) ->
         when 'block'
           window.game.draw_block(canvas, x, y)
         when 'has_bomb'
-          window.game.draw_has_bomb(canvas, x, y, elem.bomb_color)
+          if (new Date().getTime()/1000 - elem.time >= 3)
+            # si ha transcurrido este tiempo la bomba explota
+            window.game.bomb_explosion(i, j, grid)
+          else
+            window.game.draw_has_bomb(canvas, x, y, elem.bomb_color)
         when 'empty'
           window.game.draw_empty(canvas, x, y)
         when 'has_player'
           window.game.draw_player(canvas, x, y, elem.head_color, elem.eyes_color, elem.body_color, elem.limbs_color)
+        when 'has_explosion'
+          if (new Date().getTime()/1000 - elem.time >= 2)
+            # la explosion permanece un tiempo
+            window.conn.update_grid([i+':'+j+':'+'empty'+':'+0])
+          else
+            window.game.draw_explosion(canvas,x , y)
         else
           window.game.draw_empty(canvas, x, y)
-
-      i++
       x += window.game.block_width
+      j++
+    i++
+    j = 0
     x = 0
     y += window.game.block_height
-window.game.draw_number = (canvas ,x, y, i)->
+
+window.game.bomb_explosion = (i, j, grid) ->
+  for a in [0,1]
+    for b in [-1,+1]
+      if ((a == 0) and (((i+b) <= 6) and ((i+b) >= 0)))
+        window.game.bomb_explosion_collision(grid[i+b][j], i+b, j)
+      else if ((a == 1) and (((j+b) <= 8) and ((j+b) >= 0)))
+        window.game.bomb_explosion_collision(grid[i][j+b], i, j+b)
+  window.game.new_grid_elems.push(i+':'+j+':'+'has_explosion'+':'+new Date().getTime()/1000)
+  window.conn.update_grid(window.game.new_grid_elems)
+  console.log window.game.new_grid_elems
+  window.game.new_grid_elems = []
+
+window.game.bomb_explosion_collision = (elem, i, j) ->
+  try
+    console.log 'collision'
+    if elem.block_type == 'brick' or elem.block_type == 'empty'
+      window.game.new_grid_elems.push(i+':'+j+':'+'has_explosion'+':'+new Date().getTime()/1000)
+    else if elem.block_type == 'has_player'
+      window.conn.player_die(elem.user_id)
+      window.game.new_grid_elems.push(i+':'+j+':'+'has_explosion'+':'+new Date().getTime()/1000)
+  catch e
+    console.log e
+window.game.draw_explosion = (canvas,x , y) ->
+  canvas.drawPolygon
+    fillStyle: "#36c"
+    x: x+(window.game.block_width/2)
+    y: y+(window.game.block_height/2)
+    radius: window.game.block_height/2 - 4
+    sides: 15
+    concavity: 0.6
+    strokeStyle: "#f60"
+    strokeWidth: 2
+
+window.game.draw_number = (canvas ,x, y, i) ->
   canvas.drawText
     #fillStyle: "#9cf"
     layer:true
@@ -273,6 +317,12 @@ window.game.draw_player = (canvas, x, y, head_color, eyes_color, body_color, lim
     height: parseInt(height * 0.4)
 
 window.game.update = () ->
+  b = new Date().getTime()
+  frames = b-window.game.i_update
+  window.game.i_update = b
+  $('#frames_update').html('update FPS: '+Math.round(1000/frames));
+
+
   if (window.game.key_pressed != null and window.game.grid != null)
     # solo muevo si pulsa tecla
     x = 0
@@ -310,7 +360,7 @@ window.game.update = () ->
     #obtengo la posición previa al movimiento
     old_position = window.game.player_actual_position(window.game.grid)
     new_position = [old_position[0]+y, old_position[1]+x]
-    #compruebo que se puda mover
+    #compruebo que se pueda mover
     switch window.game.player_mov_collision(new_position[0], new_position[1], window.game.grid)
       when 'ok'
         # mando la nueva posicion y borro la anterior
@@ -318,6 +368,9 @@ window.game.update = () ->
         window.game.new_grid_elems.push(old_position[0]+':'+old_position[1]+':'+'empty'+':'+0)
       when 'die'
         console.log 'USER DIE'
+        window.conn.player_die(window.game.grid[old_position[0]][old_position[1]].user_id)
+        window.game.new_grid_elems.push([old_position[0]+':'+old_position[1]+':'+'empty'+':'+0])
+
     window.conn.update_grid(window.game.new_grid_elems)
     window.game.new_grid_elems = []
 window.game.player_actual_position = (grid) ->
@@ -347,7 +400,7 @@ window.game.player_mov_collision = (i, j, grid) ->
   if((j < 0) or (j > 8) or (i < 0) or (i > 6))
     back = 'collision'
   else if(grid[i][j].block_type != 'empty')
-    if grid[i][j].block_type == 'explosion'
+    if grid[i][j].block_type == 'has_explosion'
       # si choca con una explosion muere
       back = 'die'
     else

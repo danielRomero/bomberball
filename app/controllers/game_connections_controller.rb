@@ -131,8 +131,8 @@ private
 					{:block_type => 'brick'}
 				when 'has_bomb'
 					get_bomb(data[4], players_list_id)
-				else
-					{:block_type => 'empty'}
+				when 'has_explosion'
+					{:block_type => data[2], :time => data[3]}
 			end
 		end
 	end

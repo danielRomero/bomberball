@@ -37,7 +37,9 @@ window.conn.disconnect_player = (user_id) ->
 	window.conn.dispatcher.trigger('disconnect_player', {user_id: user_id, game_id: window.conn.channel_name})
 
 window.conn.update_player = (user_id, old_state, new_state) ->
-	window.conn.dispatcher.trigger('update_player', {user_id: user_id, old_values: old_state, new_values: new_state})	
+	window.conn.dispatcher.trigger('update_player', {user_id: user_id, old_values: old_state, new_values: new_state})
+window.conn.player_die = (user_id) ->
+	console.log 'Matar al usuario muajajaja'
 
 # ----------------------------------------- OLD -------------------------------------
 #window.conn.failure = (response) ->
