@@ -34,20 +34,12 @@ window.game.canvas_set_size_pc = (canvas) ->
 
   
 window.game.canvas_set_size_touch = (canvas) ->
+  $('#controls_description_pc').hide()
   window.game.canvas = canvas
   # si NO estamos en modo lanscape mostramos una alerta y ocultamos el canvas
   width = 0
   height = 0
-  if window.innerHeight > window.innerWidth
-    $('.game').hide()
-    $('#turn_device_to_landscape_alert').show()
-    # el alto pasa a ser el ancho y viceversa para calcular el tamaño del canvas
-    height = window.innerWidth
-    width = window.innerHeight
-  else
-    # obtengo el alto y ancho para calcular el tamaño del canvas
-    height = window.innerHeight
-    width = window.innerWidth
+  width = window.innerWidth
   canvas_width = Math.round(width*0.70)
   # tamaño de los controles sobre la pantalla
   table_size = Math.floor((width - canvas_width - 6)/2)
@@ -77,6 +69,7 @@ window.game.listener_change_device_orientation = () ->
       $('.game').hide()
       $('#turn_device_to_landscape_alert').show()
     else
+      window.game.canvas_set_size_touch(window.game.canvas)
       $('.game').show()
       $('#turn_device_to_landscape_alert').hide()
   ), false
@@ -418,11 +411,9 @@ window.game.disconnect_player = () ->
   window.conn.update_grid([old_position[0]+':'+old_position[1]+':'+'empty'+':'+0])
 
 window.game.player_lose = () ->
-  $('#modal_window_game_win_lose').find('#text_message').html('Game finish')
   $('#trigger_finish_modal').click()
   
 
 
 window.game.player_win = () ->
-  $('#modal_window_game_win_lose').find('#text_message').html('Game finish')
   $('#trigger_finish_modal').click()

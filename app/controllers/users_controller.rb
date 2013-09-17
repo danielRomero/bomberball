@@ -64,12 +64,8 @@ class UsersController < ApplicationController
 				end
 				if (!social_signed)
 					social = user.socials.create(:social_id => response['id'], :sn_type => 'beperk', :name => response['name'],:avatar_url => response['avatar_cmedium'],:social_link=>'url_endpoint'+response['id'])
-					# REGISTRADO!
-				else
-					# => ya tiene esta red social
-					# REGISTRADO!
-					redirect_to root_path
 				end
+				sign_in(user)
 			else
 				# => es un usuario nuevo
 				begin
@@ -80,16 +76,15 @@ class UsersController < ApplicationController
 
 					social = user.socials.create(:social_id => response['id'], :sn_type => 'beperk', :name => response['name'],:avatar_url => response['avatar_cmedium'],:social_link=>'url_endpoint'+response['id'])
 
-					#Usuario registrado con exito
 					# REGISTRADO!
-					redirect_to root_path
-
+					sign_in(user)
 				rescue Exception => e
 					logger.debug 'Error en el login de usuario'+e.backtrace.inspect
 					redirect_to root_path
 				end
 			end
-
+			
+			redirect_to root_path
 		else
 			redirect_to client.auth_code.authorize_url(:redirect_uri => callbackUrl)
 		end
@@ -113,12 +108,13 @@ class UsersController < ApplicationController
 			
 			response = RestClient.get url
 			response = JSON.parse(response)
-			
-			if((user = User.where(:email => response['email'])) and !user.blank?)
-				# => ya registrado
+			  # AQUI TENEMOS AL USUARIO
+      if((user = User.where(:email => response['email']).first) and !user.blank?)
+      	
+				# => ya registrado pero no sé con que red social
 				social_signed = false
 				for social in user.socials
-					if((social.social_id == response['id']) and (social.name == 'facebook'))
+					if(social.sn_type == 'facebook')
 						# YA REGISTRADO CON ESTA RED SOCIAL
 						social_signed = true
 						break
@@ -127,12 +123,8 @@ class UsersController < ApplicationController
 				if (!social_signed)
 					social = user.socials.create(:social_id => response['id'], :sn_type => 'facebook', :name => response['first_name'],:avatar_url => avatar_url,:social_link=>response['link'])
 					location = user.locations.create(:location => response['location']['name'])
-					# REGISTRADO!
-				else
-					# => ya tiene esta red social
-					# REGISTRADO!
-					redirect_to root_path
 				end
+				sign_in(user)
 			else
 				# => es un usuario nuevo
 				#FB no devuelve el avatar así que lo pido a parte
@@ -149,13 +141,13 @@ class UsersController < ApplicationController
 					
 					location = user.locations.create(:location => response['location']['name'])
 					# REGISTRADO!
-					redirect_to root_path
+					sign_in(user)
 				rescue Exception => e
 					logger.debug 'Error en el login de usuario'+e.backtrace.inspect
 					redirect_to root_path
 				end
-
 			end
+			redirect_to root_path
 
 		elsif (params[:error])
 			redirect_to root_path
@@ -278,9 +270,6 @@ class UsersController < ApplicationController
 
 					user = User.create(:email => response['email'],:name => response['given_name'],:avatar_url => response['picture'])
 					# lOGUEA AL USUARIO
-					
-					
-					# DEVUELVE AL USUARIO
 					
 					#raise current_user.inspect
 					profile = Profile.create(:user_id=>user.id)

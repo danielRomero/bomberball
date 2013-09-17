@@ -3,9 +3,10 @@
 		%h2.text-center.active
 			
 			='It looks like a classic Bomberman game'
-			.icon-quote-right 
-		%h2.active
-			=link_to 'ENTRAR', entrar_path
+			.icon-quote-right
+		-if false
+			%h2
+				=link_to 'ENTRAR', entrar_path
 		%h2.text-center
 			.icon-quote-left
 			='"It looks like a classic Bomberman game1"'
@@ -35,7 +36,7 @@
 								%br
 								=link_to(login_google_path) do
 									.icon-google-plus-sign.icon
-								=link_to(login_beperk_path) do
+								=link_to('#beperk_beta','data-toggle'=>'modal') do
 									.beperk-icon-enso_box.icon{:style=>'font-size:52px;'}
 							.caption
 								%h3='Step 1'
@@ -93,9 +94,7 @@
 											  width: parseInt(width*0.2),
 											  height: parseInt(height*0.2)
 											});
-
 											animation1=1;
-
 										}
 										dibujar();
 
@@ -108,7 +107,7 @@
 					%div{:style=>'clear:both'}
 					.content_box.col-lg-12.col-md-12.col-xs-12.col-sm-12
 						.box{:style=>'height:380px;'}
-							='Aquí va Imagen de Play with your friends.'
+							=image_tag 'multiplayer.png', :size=>'130x130'
 							.caption
 								%h3='Step 3'
 								%p='Play with your friends.'
@@ -172,8 +171,19 @@
 						%hr
 						%h6
 							=link_to 'Terms and license, data usage, cookies policy', privacy_license_and_terms_path,:target=>'_blank',:class=>'cool_anchor_dark'
+	-# MODAL WINDOW Message Only Beta users Beperk
+	.modal.fade#beperk_beta
+		.modal-dialog
+			.modal-content
+				.modal-header
+					%button.close{:type=>'button','data-dismiss'=>'modal', 'aria-hidden'=>'true'}='x'
+					%h4.modal-title='Beperk login'
+				.modal-body
+					='Only for Beperk Beta users'
+					=link_to('Ok',login_beperk_path,:class=>'btn btn-primary')
 	:javascript
 		$(document).ready(function() {
 			$('#twitter_email').draggable();
+			$('#beperk_beta').draggable();
 			$('#login_modal').draggable();
 		});

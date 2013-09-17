@@ -15,17 +15,6 @@ class GameConnectionsController < WebsocketRails::BaseController
 				player_win(message['game_id'])
 			end
 		end
-		# players_list_id = 'players'+message['game_id'].to_s
-		# for iterator in 0..connection_store.collect_all(players_list_id).count
-		# 	if connection_store[players_list_id][iterator]['user_id'] = message['user_id']
-		# 		connection_store[players_list_id].delete_at(iterator)
-		# 	end
-		# end
-		# logger.debug 'player list'+connection_store.collect_all(players_list_id)
-		
-		# aquí hay que quitar el player del grid del controller_store
-		# sin embargo del connection_store se elimina automáticamente el player
-		#¿cuando elimino la partida?
 	end
 	
 	def player_win(game_id)
@@ -72,12 +61,6 @@ class GameConnectionsController < WebsocketRails::BaseController
 		if (!message['new_values'].blank?)
 			update_game(message['new_values'], grid_game_id, players_list_id)
 		end
-		# si es el primer usuario conectado creo el grid y le digo que estamos esperando a más usuarios
-		# actualizo el grid solo cuando tenga cambios
-		# if(!message['new_grid_elems'].blank?)
-		# 	controller_store[grid_game_id] = grid_comparison(message['new_grid_elems'], controller_store[grid_game_id],players_list_id)
-		# end
-		# actualizo el store del grid de los clientes por multidifusion al canal indicado en game_id
 		WebsocketRails[message['game_id']].trigger(:update_grid, {grid: controller_store[grid_game_id], players: connection_store[players_list_id]})
 	end
 
@@ -110,24 +93,6 @@ private
 		controller_store[grid_game_id] = grid
 		return grid
 	end
-
-	# PLayer => i:j:block_type:time:id
-	# Grid_elem => i:j:block_type:time
-	# def grid_comparison(new_grid_elems, old_grid, players_list_id)
-	# 	for elem in new_grid_elems
-	# 		grid_item = elem.split(':')
-	# 		if (grid_item[2] == 'has_player')
-	# 			#actualizo la lista de usuarios
-	# 			update_player(grid_item[4],grid_item[0].to_i,grid_item[1].to_i, players_list_id)
-	# 			#actualizo grid pero solo las posiciones indicadas por el nuevo array con elementos del grid
-	# 			old_grid[grid_item[0].to_i][grid_item[1].to_i] = {:block_type => grid_item[2], :time => grid_item[3].to_i, :user_id =>grid_item[4] }
-	# 		else
-	# 			#actualizo el grid
-	# 			old_grid[grid_item[0].to_i][grid_item[1].to_i] = {:block_type => grid_item[2], :time => grid_item[3].to_i}
-	# 		end
-	# 	end
-	# 	return old_grid
-	# end
 
 	# data => [[i:j:block_type:time:id]]
 	def update_game(new_values, grid_game_id, players_list_id)
