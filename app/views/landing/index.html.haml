@@ -4,9 +4,13 @@
 			
 			='It looks like a classic Bomberman game'
 			.icon-quote-right
-		-if false
-			%h2
-				=link_to 'ENTRAR', entrar_path
+		
+		%h2#entrar_feo
+			=link_to 'ENTRAR', entrar_path
+		:javascript
+			if ("ontouchstart" in document.documentElement){
+					$('#entrar_feo').show();
+				}
 		%h2.text-center
 			.icon-quote-left
 			='"It looks like a classic Bomberman game1"'

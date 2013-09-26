@@ -25,6 +25,18 @@ class GamesController  < ApplicationController
 		end
 	end
 
+	def end_game
+		if params['gana']
+			@gana = true
+		else
+			@gana = false
+		end
+		respond_to do |format|
+      format.js { render :nothing => true}
+      format.html { render}
+    end
+	end
+
 	def delete
 		# Sería destroy pero si hay vista previa es delete
 		# Cuándo abandona un jugador el juego?

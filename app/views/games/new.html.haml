@@ -46,19 +46,10 @@
 									%td
 									%td.with_content
 										.icon-arrow-down.icon
-									%td	
-				#frames_draw
-					='hola'
-				#frames_update
-					='adios'
-				#controls_description_pc					
-					#arrows{:style=>'float:right'}
-						='For move'
-						=image_tag 'arrows.png'
-					#awsd{:style=>'float:left'}
-						='For Bombs'
-						=image_tag 'awsd.png'
+									%td
+				
 				%canvas#principal_game_canvas{:autofocus => "",:width=>'0',:height=>'0',:style=>'float:left'}
+				.clearfix
 				=link_to('','#modal_window_game_win_lose','data-toggle'=>'modal', :style => 'display:none', :id => 'trigger_finish_modal')
 				.modal.fade#modal_window_game_win_lose
 					.modal-dialog
@@ -99,6 +90,8 @@
 						window.game.canvas_set_size_pc($('#principal_game_canvas'));
 					});
 				}
+				//window.game.canvas_set_size_touch($('#principal_game_canvas'));
+				//window.game.touch_controls($('.touch_controls'));
 				// *********** INIT CONNECTION ***********
 				window.conn.init_connection("#{@game.id}", "#{@user.id}", "#{@host}")
 				window.game.set_user_id(#{@user.id})

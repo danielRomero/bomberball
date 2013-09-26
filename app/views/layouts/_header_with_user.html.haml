@@ -6,15 +6,14 @@
 					%span.icon-bar
 					%span.icon-bar
 					%span.icon-bar
-				=link_to 'Bomberball','',:class=>'navbar-brand',:onclick=>"$('html, body').animate({scrollTop:$('body').position().top},'slow')"
+				=link_to 'Bomberball',root_path,:class=>'navbar-brand',:onclick=>"$('html, body').animate({scrollTop:$('body').position().top},'slow')"
 			.collapse.navbar-collapse.navbar-ex1-collapse{:style=>'padding-right:0px;'}
 				.nav.navbar-nav.text-center.user_name
 					=link_to current_user.name,'',:onclick=>"$('html, body').animate({scrollTop:$('body').position().top},'slow')"
-					= link_to '-Sign out-', user_sign_out_path, :method => :delete
+					
 				%ul.nav.navbar-nav.pull-right
 					%li
-						=link_to ('') do
-							.icon-cog
+						= link_to '-Sign out-', user_sign_out_path, :method => :delete
 					
 				
 				

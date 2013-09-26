@@ -6,3 +6,47 @@ login_twitter_post POST   /users/login_twitter(.:format)  users#login_twitter
       login_google GET    /users/login_google(.:format)   users#login_google
     login_facebook GET    /users/login_facebook(.:format) users#login_facebook
      user_sign_out DELETE /users/sign_out(.:format)       users#user_sign_out
+                       Prefix Verb   URI Pattern                                   Controller#Action
+                         root GET    /                                             landing#index
+                 login_beperk GET    /users/login_beperk(.:format)                 users#login_beperk
+                login_twitter GET    /users/login_twitter(.:format)                users#login_twitter
+           login_twitter_post POST   /users/login_twitter(.:format)                users#login_twitter
+                 login_google GET    /users/login_google(.:format)                 users#login_google
+               login_facebook GET    /users/login_facebook(.:format)               users#login_facebook
+                user_sign_out DELETE /users/sign_out(.:format)                     users#user_sign_out
+                     end_game GET    /games/end_game(.:format)                     games#end_game
+                     about_me GET    /landing/about_me(.:format)                   landing#about_me
+                       entrar GET    /users/entrar(.:format)                       users#entrar
+                        games GET    /games(.:format)                              games#index
+                              POST   /games(.:format)                              games#create
+                     new_game GET    /games/new(.:format)                          games#new
+                    edit_game GET    /games/:id/edit(.:format)                     games#edit
+                         game GET    /games/:id(.:format)                          games#show
+                              PATCH  /games/:id(.:format)                          games#update
+                              PUT    /games/:id(.:format)                          games#update
+                              DELETE /games/:id(.:format)                          games#destroy
+                        users GET    /users(.:format)                              users#index
+                              POST   /users(.:format)                              users#create
+                     new_user GET    /users/new(.:format)                          users#new
+                    edit_user GET    /users/:id/edit(.:format)                     users#edit
+                         user GET    /users/:id(.:format)                          users#show
+                              PATCH  /users/:id(.:format)                          users#update
+                              PUT    /users/:id(.:format)                          users#update
+                              DELETE /users/:id(.:format)                          users#destroy
+                     profiles GET    /profiles(.:format)                           profiles#index
+                              POST   /profiles(.:format)                           profiles#create
+                  new_profile GET    /profiles/new(.:format)                       profiles#new
+                 edit_profile GET    /profiles/:id/edit(.:format)                  profiles#edit
+                      profile GET    /profiles/:id(.:format)                       profiles#show
+                              PATCH  /profiles/:id(.:format)                       profiles#update
+                              PUT    /profiles/:id(.:format)                       profiles#update
+                              DELETE /profiles/:id(.:format)                       profiles#destroy
+    privacy_license_and_terms GET    /privacy_license_and_terms(.:format)          privacy_license_and_terms#index
+                              POST   /privacy_license_and_terms(.:format)          privacy_license_and_terms#create
+ new_privacy_license_and_term GET    /privacy_license_and_terms/new(.:format)      privacy_license_and_terms#new
+edit_privacy_license_and_term GET    /privacy_license_and_terms/:id/edit(.:format) privacy_license_and_terms#edit
+     privacy_license_and_term GET    /privacy_license_and_terms/:id(.:format)      privacy_license_and_terms#show
+                              PATCH  /privacy_license_and_terms/:id(.:format)      privacy_license_and_terms#update
+                              PUT    /privacy_license_and_terms/:id(.:format)      privacy_license_and_terms#update
+                              DELETE /privacy_license_and_terms/:id(.:format)      privacy_license_and_terms#destroy
+                    websocket GET    /websocket(.:format)                          websocket_rails

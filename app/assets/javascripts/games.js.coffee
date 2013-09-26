@@ -2,6 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 window.game = {
+  end : true
   user_id : null
   players : null
   grid : null
@@ -40,27 +41,30 @@ window.game.canvas_set_size_touch = (canvas) ->
   width = 0
   height = 0
   width = window.innerWidth
-  canvas_width = Math.round(width*0.70)
+  canvas_width = parseInt(Math.round(width*0.60))
   # tamaño de los controles sobre la pantalla
-  table_size = Math.floor((width - canvas_width - 6)/2)
+  table_size = parseInt(Math.floor((width - canvas_width - 20)/3))
   $('.touch_controls').css('min-width', table_size)
 
-  $('table').css('font-size', table_size/3)
+  $('table').css('font-size', parseInt((table_size-12)/3))
   # ya tengo el tamaño del dispositivo, calculo tamaños
-  canvas.attr('width',canvas_width)
-  canvas.attr('height', Math.floor(canvas_width/2))
+  canvas.attr('width',canvas_width-20)
+  canvas.attr('height', parseInt(Math.floor(canvas_width/2)))
   
-  window.game.canvas_width = canvas_width
-  window.game.canvas_height = Math.floor((canvas_width/2))
+  window.game.canvas_width = parseInt(canvas_width - 20)
+  window.game.canvas_height = parseInt(Math.floor((window.game.canvas_width /2)))
 
-  window.game.block_width = Math.floor(window.game.canvas_width / 9)
-  window.game.block_height = Math.floor(window.game.canvas_height / 7)
+  window.game.block_width = parseInt(Math.floor(window.game.canvas_width / 9))
+  window.game.block_height = parseInt(Math.floor(window.game.canvas_height / 7))
   # dejo el header o barra de navegacion fija arriba y hago scroll despacio hasta el canvas
   
   $("html, body").animate
     scrollTop: $('.game').position()
   , "slow"
   $('nav').removeClass('navbar-fixed-top')
+  if window.innerHeight > window.innerWidth
+    $('.game').hide()
+    $('#turn_device_to_landscape_alert').show()
 
 window.game.listener_change_device_orientation = () ->
   # Cuando cambia la orientación, si está en modo landscape mostramos el canvas, si no una alerta
@@ -108,7 +112,7 @@ window.game.draw = (canvas) ->
   b = new Date().getTime()
   frames = b-window.game.i_draw
   window.game.i_draw = b
-  $('#frames_draw').html('draw FPS: '+Math.round(1000/frames));
+  #$('#frames_draw').html('draw FPS: '+Math.round(1000/frames));
   if (window.game.grid != null)
     window.game.draw_grid(canvas, window.game.grid, window.game.players)
   
@@ -171,7 +175,8 @@ window.game.bomb_explosion_collision = (elem, i, j) ->
     else if elem.block_type == 'has_player'
       
       window.game.new_grid_elems.push(i+':'+j+':'+'has_explosion'+':'+new Date().getTime()/1000)
-      window.game.player_lose()
+      if elem.user_id == window.game.user_id
+        window.game.player_lose()
   catch e
     console.log e
 window.game.draw_explosion = (canvas,x , y) ->
@@ -317,7 +322,7 @@ window.game.update = () ->
   b = new Date().getTime()
   frames = b-window.game.i_update
   window.game.i_update = b
-  $('#frames_update').html('update FPS: '+Math.round(1000/frames));
+  #$('#frames_update').html('update FPS: '+Math.round(1000/frames));
 
 
   if (window.game.key_pressed != null and window.game.grid != null)
@@ -367,7 +372,7 @@ window.game.update = () ->
         console.log 'USER DIE'
         
         window.game.new_grid_elems.push([old_position[0]+':'+old_position[1]+':'+'empty'+':'+0])
-        window.game.player_lose()
+        
 
     window.conn.update_grid(window.game.new_grid_elems)
     window.game.new_grid_elems = []
@@ -410,10 +415,16 @@ window.game.disconnect_player = () ->
   old_position = window.game.player_actual_position(window.game.grid)
   window.conn.update_grid([old_position[0]+':'+old_position[1]+':'+'empty'+':'+0])
 
-window.game.player_lose = () ->
-  $('#trigger_finish_modal').click()
+window.game.player_lose = (gana) ->
+  #window.game.connection
+  #
+  # window.conn.disconnect_player(window.game.user_id)
   
-
-
-window.game.player_win = () ->
-  $('#trigger_finish_modal').click()
+  if (window.game.end)
+    window.game.end = false
+    $('#trigger_finish_modal').click()
+    if(gana != undefined)
+      console.log gana
+      location.href = '/games/end_game?gana=true'
+    else
+      location.href = '/games/end_game'

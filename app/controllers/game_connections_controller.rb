@@ -2,19 +2,28 @@ class GameConnectionsController < WebsocketRails::BaseController
 	
 	def player_disconnected
 		logger.debug 'Player disconneted!!!'
+		
 		grid_game_id = 'grid'+message['game_id'].to_s
 		players_list_id = 'players'+message['game_id'].to_s
+		
+
+		
 		logger.debug 'numero de jugadores: '+connection_store.collect_all(players_list_id).count.to_s
 		# resto uno porque es el jugador que se desconecta
+		
 		if (connection_store.collect_all(players_list_id).count-1 <= 1)
-			#soy el último jugador y me piro así que me cargo el juego
+			#GANO, soy el último judador
 			if (game = Game.find(message['game_id']) and !game.blank?)
 				game.destroy
 			end
+
 			if(connection_store.collect_all(players_list_id).count-1 == 1)
 				player_win(message['game_id'])
 			end
+		else
+			# Pierdo, me han matado
 		end
+
 	end
 	
 	def player_win(game_id)
@@ -26,9 +35,9 @@ class GameConnectionsController < WebsocketRails::BaseController
 	end
 
 	def player_connected
-		logger.debug 'Player conneted!!!'
 		grid_game_id = 'grid'+message['game_id'].to_s
 		players_list_id = 'players'+message['game_id'].to_s
+
 		if((user = User.find(message['user_id'])) and (!user.blank?))
 			player = case connection_store.collect_all(players_list_id).count
 				when 1
@@ -47,7 +56,8 @@ class GameConnectionsController < WebsocketRails::BaseController
 					new_player(user,6,8,players_list_id)
 					['6:8:has_player:0:'+user.id.to_s]
 			end
-			logger.debug 'PLAYER => '+player.inspect
+
+			
 			#grid_comparison(player,controller_store[grid_game_id],players_list_id)
 			update_game(player, grid_game_id, players_list_id)
 			WebsocketRails[message['game_id']].trigger(:update_grid, {grid: controller_store[grid_game_id], players: connection_store[players_list_id]})
