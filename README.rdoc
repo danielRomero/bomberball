@@ -3,33 +3,9 @@
 Proyecto Fin de Carrera de Daniel Romero Esteban
 
 Consiste en un juego multijugador en tiempo real similar al clásico Bomberman.
-Se ha aprovechado el plugin de jQuery jCanvas http://calebevans.me/projects/jcanvas/ para dibujar los gráficos en 2D.
-Para sincronizar las partidas se han utilizado websockets.
-Se ha utilizado el framework Ruby on Rails.
-Para el cliente también se ha utilizado Bootstrap ya que además está diseñado pensado en tamaños adaptables para poder jugar desde cualquier dispositivo.
-También se ha hecho gestión de usuarios que se registran en la aplicación a través de redes sociales como Twitter, Google, Facebook y Beperk.
-El usuario puede personalizar los colores de su personaje además de guardar la puntuación de las partidas ganadas.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* Se ha aprovechado el plugin de jQuery <b>jCanvas</b> http://calebevans.me/projects/jcanvas/ para dibujar los gráficos en 2D.
+* Para sincronizar las partidas se han utilizado <b>websockets</b>.
+* Se ha utilizado el framework <b>Ruby on Rails</b>.
+* Para el cliente también se ha utilizado <b>Bootstrap</b> ya que además está diseñado pensado en <b>tamaños adaptables</b> para poder jugar desde cualquier dispositivo.
+* También se ha hecho gestión de usuarios que se registran en la aplicación a través de redes sociales aprovechando las APIs de <b>Twitter, Google, Facebook y Beperk.</b>
+* El usuario puede personalizar los colores de su personaje además de guardar la puntuación de las partidas ganadas.
